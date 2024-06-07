@@ -3,12 +3,18 @@
 namespace App\Http\Traits;
 
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 trait UploadFile
 {
-
+    /**
+     * Upload a file to the specified folder.
+     *
+     * @param  mixed  $request
+     * @param  string  $folder
+     * @return string
+     * @throws \Exception
+     */
     public function uploadFile($request, $folder)
     {
 

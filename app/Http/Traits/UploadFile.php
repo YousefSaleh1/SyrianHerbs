@@ -17,7 +17,6 @@ trait UploadFile
      */
     public function uploadFile($request, $folder)
     {
-
         $file = $request;
         $originalName = $file->getClientOriginalName();
 

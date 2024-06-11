@@ -20,6 +20,7 @@ class Brand extends Model
      */
     protected $fillable = [
         'name',
+        'background_image',
         'description',
         'main_image',
         'presentation_image',
@@ -45,6 +46,27 @@ class Brand extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'brand_id', 'id');
+    }
+
+    /**
+     * Set the "background_image" attribute.
+     *
+     * @param  mixed  $value
+     * @return void
+     */
+    public function setBackgroundImageAttribute($value)
+    {
+        $this->attributes['background_image'] = $this->uploadFile($value, 'Brand');
+    }
+
+    /**
+     * Get the "background_image" attribute.
+     *
+     * @return string
+     */
+    public function getBackgroundImageAttribute()
+    {
+        return asset(Storage::url($this->background_image));
     }
 
     /**

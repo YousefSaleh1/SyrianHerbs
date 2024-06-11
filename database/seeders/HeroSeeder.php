@@ -14,13 +14,13 @@ class HeroSeeder extends Seeder
     public function run(): void
     {
         Hero::create([
-            'image' => '',
+            // 'image' => '',
             'title' => '',
             'page'  => 'main',
         ]);
 
         Hero::create([
-            'image' => '',
+            // 'image' => '',
             'title' => '',
             'page'  => 'about',
         ]);

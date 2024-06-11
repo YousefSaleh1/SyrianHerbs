@@ -14,8 +14,8 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-            'website_icon'        => '',
-            'website_logo'        => '',
+            // 'website_icon'        => '',
+            // 'website_logo'        => '',
             'title'               => '',
             'description'         => '',
             'tags'                => '',

@@ -2,21 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\About;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AboutSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        About::create([
-            'title'       => '',
-            'description' => '',
-            // 'file'        => '',
+        User::create([
+            'user_name' => 'Admin111',
+            'password'  => '11111111'
         ]);
     }
 }

@@ -16,12 +16,12 @@ class AdvantageSeeder extends Seeder
         Advantage::create([
             'title'       => '',
             'description' => '',
-            'main_image'  => '',
-            'image1'      => '',
-            'image2'      => '',
-            'image3'      => '',
-            'image4'      => '',
-            'image5'      => '',
+            // 'main_image'  => '',
+            // 'image1'      => '',
+            // 'image2'      => '',
+            // 'image3'      => '',
+            // 'image4'      => '',
+            // 'image5'      => '',
         ]);
     }
 }

@@ -29,7 +29,9 @@ class BrandController extends Controller
     public function store(StoreBrandRequest $request)
     {
         try {
-            //code...
+            Brand::create([
+                'main-image' => $request->main_image
+            ]);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
@@ -51,7 +53,7 @@ class BrandController extends Controller
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         try {
-            //code...
+            $brand->main_image = $request->input('main_image') ?? $brand->main_image;
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);

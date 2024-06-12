@@ -15,7 +15,8 @@ class ContactMessageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            //
+            'full_name' => $this->full_name,
+            'message' => $this->message,
         ];
     }
 }

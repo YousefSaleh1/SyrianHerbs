@@ -71,7 +71,7 @@ class Product extends Model
      */
     public function getMainImageAttribute()
     {
-        return asset(Storage::url($this->main_image));
+        return asset(Storage::url($this->attributes['main_image']));
     }
 
     /**
@@ -92,6 +92,6 @@ class Product extends Model
      */
     public function getAdditionalImageAttribute()
     {
-        return asset(Storage::url($this->additional_image));
+        return asset(Storage::url($this->attributes['additional_image']));
     }
 }

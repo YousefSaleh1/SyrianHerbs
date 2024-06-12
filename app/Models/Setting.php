@@ -44,7 +44,7 @@ class Setting extends Model
      */
     public function getWebsiteIconAttribute()
     {
-        return asset(Storage::url($this->website_icon));
+        return asset(Storage::url($this->attributes['website_icon']));
     }
 
     /**
@@ -65,6 +65,6 @@ class Setting extends Model
      */
     public function getWebsiteLogoAttribute()
     {
-        return asset(Storage::url($this->website_logo));
+        return asset(Storage::url($this->attributes['website_logo']));
     }
 }

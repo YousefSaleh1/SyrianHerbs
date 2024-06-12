@@ -41,6 +41,6 @@ class Policy extends Model
      */
     public function getIconAttribute()
     {
-        return asset(Storage::url($this->icon));
+        return asset(Storage::url($this->attributes['icon']));
     }
 }

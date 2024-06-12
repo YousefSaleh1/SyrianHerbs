@@ -15,7 +15,9 @@ class StoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            //
+            'id'          => $this->id,
+            'description' => $this->description,
+            'file'        => $this->file
         ];
     }
 }

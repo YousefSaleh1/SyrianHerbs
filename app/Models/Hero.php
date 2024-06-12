@@ -40,6 +40,6 @@ class Hero extends Model
      */
     public function getImageAttribute()
     {
-        return asset(Storage::url($this->image));
+        return asset(Storage::url($this->attributes['image']));
     }
 }

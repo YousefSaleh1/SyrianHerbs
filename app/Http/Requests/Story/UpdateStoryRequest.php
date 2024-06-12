@@ -22,7 +22,8 @@ class UpdateStoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => 'nullable|string|max:50',
+            'file'        => 'nullable|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
         ];
     }
 }

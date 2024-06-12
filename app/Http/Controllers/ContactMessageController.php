@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContactMessage\StoreContactMessageRequest;
-use App\Models\ContactMessage;
 use Illuminate\Http\Request;;
-use App\Http\Resources\ContactMessageResource;
-use App\Http\Traits\ApiResponseTrait;
+use App\Models\ContactMessage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ApiResponseTrait;
+use App\Http\Resources\ContactMessageResource;
+use App\Http\Requests\ContactMessage\StoreContactMessageRequest;
 
 class ContactMessageController extends Controller
 {
@@ -28,8 +29,19 @@ class ContactMessageController extends Controller
     public function store(StoreContactMessageRequest $request)
     {
         try {
-            //code...
+            DB::beginTransaction();
+            $request->validated();
+
+            $message=ContactMessage::create([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'message' => $request->message,
+            ]);
+            DB::commit();
+
+            return $this->customeResponse($message, 'message added!', 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
@@ -38,8 +50,8 @@ class ContactMessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ContactMessage $contactMessage)
-    {
+    public function show($id)
+    {   $contactMessage=ContactMessage::find($id);
         $data = new ContactMessageResource($contactMessage);
         return $this->customeResponse($data, 'Done!', 200);
     }
@@ -47,8 +59,8 @@ class ContactMessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ContactMessage $contactMessage)
-    {
+    public function destroy($id)
+    {   $contactMessage=ContactMessage::find($id);
         $contactMessage->delete();
         return response()->json(['message' => 'ContactMessage Deleted'], 200);
     }

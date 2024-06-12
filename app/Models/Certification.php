@@ -42,7 +42,7 @@ class Certification extends Model
      */
     public function getIconAttribute()
     {
-        return asset(Storage::url($this->icon));
+        return asset(Storage::url($this->attributes['icon']));
     }
 
     /**
@@ -63,6 +63,6 @@ class Certification extends Model
      */
     public function getPhotoAttribute()
     {
-        return asset(Storage::url($this->photo));
+        return asset(Storage::url($this->attributes['photo']));
     }
 }

@@ -16,7 +16,7 @@ class AboutSeeder extends Seeder
         About::create([
             'title'       => '',
             'description' => '',
-            // 'file'        => '',
+            // 'file'        => storage_path('storage/app/public/Test/photo_٢٠٢٣-٠٥-٢٢_٠١-٠٢-١٨.jpg'),
         ]);
     }
 }

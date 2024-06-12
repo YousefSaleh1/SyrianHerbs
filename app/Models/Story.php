@@ -39,6 +39,6 @@ class Story extends Model
      */
     public function getFileAttribute()
     {
-        return asset(Storage::url($this->file));
+        return asset(Storage::url($this->attributes['file']));
     }
 }

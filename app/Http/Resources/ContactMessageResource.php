@@ -16,6 +16,7 @@ class ContactMessageResource extends JsonResource
     {
         return [
             'full_name' => $this->full_name,
+            'email' =>$this ->email,
             'message' => $this->message,
         ];
     }

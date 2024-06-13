@@ -29,7 +29,13 @@ class StoryController extends Controller
     public function store(StoreStoryRequest $request)
     {
         try {
-            //code...
+            $story = Story::create([
+                'description' => $request->description,
+                'file'        => $request->file
+            ]);
+
+            $data = new StoryResource($story);
+            return $this->customeResponse($data, 'Successfully Created', 201);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
@@ -51,7 +57,13 @@ class StoryController extends Controller
     public function update(UpdateStoryRequest $request, Story $story)
     {
         try {
-            //code...
+            $story->description = $request->input('description') ?? $story->description;
+            $story->file = $request->input('file') ?? $story->file;
+
+            $story->save();
+
+            $data = new StoryResource($story);
+            return $this->customeResponse($data, 'Successfully Updated',200);
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);

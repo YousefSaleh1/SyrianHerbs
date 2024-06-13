@@ -45,7 +45,7 @@ class Advantage extends Model
      */
     public function getMainImageAttribute()
     {
-        return asset(Storage::url($this->main_image));
+        return asset(Storage::url($this->attributes['main_image']));
     }
 
     /**
@@ -66,7 +66,7 @@ class Advantage extends Model
      */
     public function getImage1Attribute()
     {
-        return asset(Storage::url($this->image1));
+        return asset(Storage::url($this->attributes['image1']));
     }
 
     /**
@@ -87,7 +87,7 @@ class Advantage extends Model
      */
     public function getImage2Attribute()
     {
-        return asset(Storage::url($this->image2));
+        return asset(Storage::url($this->attributes['image2']));
     }
 
     /**
@@ -108,7 +108,7 @@ class Advantage extends Model
      */
     public function getImage3Attribute()
     {
-        return asset(Storage::url($this->image3));
+        return asset(Storage::url($this->attributes['image3']));
     }
 
     /**
@@ -129,7 +129,7 @@ class Advantage extends Model
      */
     public function getImage4Attribute()
     {
-        return asset(Storage::url($this->image4));
+        return asset(Storage::url($this->attributes['image4']));
     }
 
     /**
@@ -150,6 +150,6 @@ class Advantage extends Model
      */
     public function getImage5Attribute()
     {
-        return asset(Storage::url($this->image5));
+        return asset(Storage::url($this->attributes['image5']));
     }
 }

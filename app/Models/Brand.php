@@ -66,7 +66,7 @@ class Brand extends Model
      */
     public function getBackgroundImageAttribute()
     {
-        return asset(Storage::url($this->background_image));
+        return asset(Storage::url($this->attributes['background_image']));
     }
 
     /**
@@ -87,7 +87,7 @@ class Brand extends Model
      */
     public function getMainImageAttribute()
     {
-        return asset(Storage::url($this->main_image));
+        return asset(Storage::url($this->attributes['main_image']));
     }
 
     /**
@@ -108,6 +108,6 @@ class Brand extends Model
      */
     public function getPresentationImageAttribute()
     {
-        return asset(Storage::url($this->presentation_image));
+        return asset(Storage::url($this->attributes['presentation_image']));
     }
 }

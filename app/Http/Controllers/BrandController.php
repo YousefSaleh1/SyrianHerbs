@@ -8,11 +8,13 @@ use App\Models\Brand;
 use Illuminate\Http\Request;;
 use App\Http\Resources\BrandResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
     /**
      * Display a listing of the resource.
      */
@@ -29,14 +31,27 @@ class BrandController extends Controller
     public function store(StoreBrandRequest $request)
     {
         try {
-            Brand::create([
-                'main-image' => $request->main_image
+            DB::beginTransaction();
+            $brand = Brand::create([
+                'name'    => $request->name,
+                'description' => $request->description,
+                'main_image' => $request->main_image,
+                'presentation_image' => $request->presentation_image,
+                'published' => $request->published,
+                'color' => $request->color,
+                'background_image' => $request->background_image,
             ]);
+
+            DB::commit();
+            $data = new BrandResource($brand);
+            return $this->customeResponse($data, 'brand created successful', 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error($th);
-            return $this->customeResponse(null, 'Failed To Create', 500);
+            return $this->customeResponse(null, 'Failed', 500);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -44,7 +59,7 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         $data = new BrandResource($brand);
-        return $this->customeResponse($data, 'Done!', 200);
+                return $this->customeResponse($data, 'Done!', 200);
     }
 
     /**
@@ -53,19 +68,29 @@ class BrandController extends Controller
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         try {
-            $brand->main_image = $request->input('main_image') ?? $brand->main_image;
+            DB::beginTransaction();
+            $brand->update([
+                'name'    => $request->name,
+                'description' => $request->description,
+                'main_image' => $request->main_image,
+                'presentation_image' => $request->presentation_image,
+                'background_image' => $request->background_image,
+                'published' => $request->published,
+                'color' => $request->color,
+            ]);
+            DB::commit();
+            $data = new BrandResource($brand);
+            return $this->customeResponse($data, 'brand updated successfully', 200);
         } catch (\Throwable $th) {
-            Log::error($th);
-            return response()->json(['message' => 'Something Error !'], 500);
+            return $this->customeResponse(null, 'brand not found', 404);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Brand $brand)
     {
         $brand->delete();
-        return response()->json(['message' => 'Brand Deleted'], 200);
+        return $this->customeResponse(null, 'brand deleted successfully', 200);
     }
 }

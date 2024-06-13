@@ -6,6 +6,7 @@ use App\Http\Requests\Brand\StoreBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;;
+
 use App\Http\Resources\BrandResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\UploadFile;
@@ -30,6 +31,7 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
+        //Note: beginTransaction
         try {
             DB::beginTransaction();
             $brand = Brand::create([
@@ -59,7 +61,7 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         $data = new BrandResource($brand);
-                return $this->customeResponse($data, 'Done!', 200);
+        return $this->customeResponse($data, 'Done!', 200);
     }
 
     /**
@@ -67,6 +69,7 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
+        //Note 
         try {
             DB::beginTransaction();
             $brand->update([

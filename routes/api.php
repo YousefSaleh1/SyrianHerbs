@@ -6,8 +6,9 @@ use App\Http\Controllers\HeroController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -79,3 +80,10 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////// End Evaluation Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+
+ ///////////////////////////Setting Request ///////////////////////
+///////////////////////////////////////////////////////////////////////
+
+Route::get('/setting/{id}', [SettingController::class, 'show']);
+Route::put('/update/{setting}', [SettingController::class, 'update'])->middleware('api');
+Route::post('/setting/add', [SettingController::class, 'store']);

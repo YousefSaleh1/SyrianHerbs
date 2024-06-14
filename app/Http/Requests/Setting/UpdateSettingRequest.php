@@ -21,6 +21,11 @@ class UpdateSettingRequest extends FormRequest
      */
     public function rules(): array
     {
+        /*
+        Note:
+            1- website_icon is SVG
+            2- title is nullable
+        */
         return [
         'website_icon' => ' nullable|image ',
         'website_logo' => ' nullable|image|mimetypes:image/jpeg,image/png,image/gif,image/jpg',

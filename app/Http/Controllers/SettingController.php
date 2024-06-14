@@ -18,6 +18,7 @@ class SettingController extends Controller
      * Display the specified resource.
      */
 
+     //Note 
 
     public function show($id)
     {

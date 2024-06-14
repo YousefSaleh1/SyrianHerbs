@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Brand;
 
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;;
 use App\Http\Resources\CategoryResource;
 use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -18,9 +20,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys = Category::all();
-        $data = CategoryResource::collection($categorys);
-        return $this->customeResponse($data, 'Done!', 200);
+        $categorys =Category::all();
+        return response()->json($categorys);
+        
     }
 
     /**
@@ -29,20 +31,34 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         try {
-            //code...
+            $category = Category::create([
+                'name'        => $request->name,
+                'published' => $request->published
+            ]);
+            $brandId = $request->input('brand_id');
+            $category->brands()->attach($brandId);
+    
+            $data = new CategoryResource($category);
+            return $this->customeResponse($data, 'Successfully Created', 201);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
+        
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Category $category)
     {
-        $data = new CategoryResource($category);
-        return $this->customeResponse($data, 'Done!', 200);
+       
+        if($category){
+            return response()->json($category);
+        }else{
+            return response(["msg"=>"didn't success"],401);
+        }
     }
 
     /**
@@ -50,12 +66,21 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+       
         try {
-            //code...
+            $category->name        = $request->input('name') ?? $category->name;
+            $category->published       = $request->input('published') ?? $category->published;
+
+            $category->save();
+
+            $data = new CategoryResource($category);
+            return $this->customeResponse($data, 'Successfully Updated',200);
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
         }
+
+        
     }
 
     /**
@@ -63,7 +88,21 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return response()->json(['message' => 'Category Deleted'], 200);
+       
+        if($category){
+            $category->brands()->detach();
+            $category->delete();
+            return response(["msg"=>"category was deleted successfolly "],201);
+        }else{
+            return response(["msg"=>"didn't success"],401);
+        }
+
     }
+   
+
+   
+
+    
+
 }
+

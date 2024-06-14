@@ -31,7 +31,7 @@ class ContactMessageController extends Controller
         //Note: The Status Is 201
         //beginTransaction
         try {
-            DB::beginTransaction();
+          
             $request->validated();
 
             $message=ContactMessage::create([
@@ -39,11 +39,11 @@ class ContactMessageController extends Controller
                 'email' => $request->email,
                 'message' => $request->message,
             ]);
-            DB::commit();
+       
 
-            return $this->customeResponse($message, 'message added!', 200);
+            return $this->customeResponse($message, 'message added!', 201);
         } catch (\Throwable $th) {
-            DB::rollBack();
+          
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }

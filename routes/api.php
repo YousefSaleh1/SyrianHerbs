@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +82,16 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////// End Evaluation Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+
+
+ ///////////////////////////Setting Request ///////////////////////
+///////////////////////////////////////////////////////////////////////
+
+Route::get('/setting/{id}', [SettingController::class, 'show']);
+Route::put('/update/{setting}', [SettingController::class, 'update'])->middleware('api');
+Route::post('/setting/add', [SettingController::class, 'store']);
+
+
 Route::get('/categorys', [CategoryController::class, 'index']);
 Route::post('/add', [CategoryController::class, 'store'])->middleware('api');;
 Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('api');
@@ -100,4 +112,5 @@ Route::middleware(['api'])->group(function () {
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 });
 //-----------------------------------End Brand Requests------------------------------------------//
+
 

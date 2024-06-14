@@ -16,7 +16,10 @@ class CategoryResource extends JsonResource
     {
         ////Note: Where is Resource ?
         return [
-            //
+            'name' => $this->name,
+            'published' => $this->published,
+
         ];
     }
 }
+

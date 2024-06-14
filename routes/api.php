@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
@@ -79,6 +80,16 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////// End Evaluation Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+Route::get('/categorys', [CategoryController::class, 'index']);
+Route::post('/add', [CategoryController::class, 'store'])->middleware('api');;
+Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('api');
+Route::get('/categorys/{category}', [CategoryController::class, 'show'])->middleware('api');
+Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('api');
+/////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// End Category Requests //////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
 
 //-----------------------------------Brand Requests------------------------------------------//
 Route::middleware(['api'])->group(function () {
@@ -89,3 +100,4 @@ Route::middleware(['api'])->group(function () {
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 });
 //-----------------------------------End Brand Requests------------------------------------------//
+

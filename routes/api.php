@@ -6,8 +6,9 @@ use App\Http\Controllers\HeroController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,3 +80,11 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////// End Evaluation Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// End Auth Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/contacts/{contact}', [ContactController::class, 'show']);
+Route::put('/contacts/{contact}', [ContactController::class, 'update']);

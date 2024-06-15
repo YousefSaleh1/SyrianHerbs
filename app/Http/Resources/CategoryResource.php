@@ -14,8 +14,12 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        ////Note: Where is Resource ?
         return [
-            //
+            'name' => $this->name,
+            'published' => $this->published,
+
         ];
     }
 }
+

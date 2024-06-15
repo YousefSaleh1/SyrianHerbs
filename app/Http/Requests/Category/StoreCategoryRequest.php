@@ -21,6 +21,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        //Note: Where is Form Request In Store?
         return [
             //
         ];

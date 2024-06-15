@@ -7,6 +7,10 @@ use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdvantageController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\SettingController;
@@ -36,11 +40,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
 
 //////////////////////Contact Messages Routes ////////////////////////
 Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
-//Note: Parameter
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
-    Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
-    Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
+Route::get('/allContactMessages',[ContactMessageController::class,'index']);
+Route::get('/showContactMessage/{contactMessage}',[ContactMessageController::class,'show']);
+Route::delete('/deleteContactMessage/{contactMessage}',[ContactMessageController::class,'destroy']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -89,6 +92,37 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 
 Route::get('/setting/{setting}', [SettingController::class, 'show']);
 Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('api');
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// About us routes ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+Route::get('/about/{about}',[AboutController::class,'show']);
+Route::put('/about/{about}', [AboutController::class, 'update'])->middleware('api');
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// End About us routes ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// About us routes ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+Route::get('/advantage/{advantage}',[AdvantageController::class,'show']);
+Route::put('/advantage/{advantage}', [AdvantageController::class, 'update'])->middleware('api');
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// End About us routes ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////// End Auth Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+Route::get('/contacts/{contact}', [ContactController::class, 'show']);
+Route::put('/contacts/{contact}', [ContactController::class, 'update']);
+
+
+ ///////////////////////////Setting Request ///////////////////////
+///////////////////////////////////////////////////////////////////////
 
 
 Route::get('/categorys', [CategoryController::class, 'index']);

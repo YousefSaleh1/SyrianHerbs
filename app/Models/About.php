@@ -30,16 +30,19 @@ class About extends Model
      */
     public function setFileAttribute($value)
     {
-        $this->attributes['file'] = $this->uploadFile($value, 'About');
+        $this->attributes['file'] = $this->uploadFile($value, 'about_files'); // Adjust folder name as needed
     }
 
     /**
      * Get the "file" attribute.
      *
-     * @return string
+     * @return string|null
      */
     public function getFileAttribute()
     {
-        return asset(Storage::url($this->attributes['file']));
+        if ($this->attributes['file']) {
+            return asset(Storage::url($this->attributes['file']));
+        }
+        return null;
     }
 }

@@ -20,10 +20,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys =Category::all();
-        return response()->json($categorys);
-        
+        $categorys = Category::all();
+        $data = CategoryResource::collection($categorys);
+        return $this->customeResponse($data, 'Done!', 200);
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -31,43 +33,57 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         try {
+            $data = $request->validate([
+                "name" => 'required|string',
+                "published" => 'required|boolean',
+            ]);
+
             $category = Category::create([
                 'name'        => $request->name,
                 'published' => $request->published
             ]);
             $brandId = $request->input('brand_id');
             $category->brands()->attach($brandId);
-    
+
             $data = new CategoryResource($category);
             return $this->customeResponse($data, 'Successfully Created', 201);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
-        
     }
 
 
     /**
      * Display the specified resource.
      */
+
+
     public function show(Category $category)
     {
-       
-        if($category){
-            return response()->json($category);
-        }else{
-            return response(["msg"=>"didn't success"],401);
-        }
+    if($category){
+        $data = new CategoryResource($category);
+        return $this->customeResponse($data, 'Done!', 200);
+    }else{
+        return response(["msg"=>"didn't success"],401);
     }
+    }
+
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-       
+
+       //Note: Validate must be in Form Request
         try {
+            $data = $request->validate([
+                "name" => 'required|string',
+                "published" => 'required|boolean',
+            ]);
+
             $category->name        = $request->input('name') ?? $category->name;
             $category->published       = $request->input('published') ?? $category->published;
 
@@ -79,8 +95,6 @@ class CategoryController extends Controller
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
         }
-
-        
     }
 
     /**
@@ -88,7 +102,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-       
         if($category){
             $category->brands()->detach();
             $category->delete();
@@ -98,11 +111,5 @@ class CategoryController extends Controller
         }
 
     }
-   
-
-   
-
-    
-
 }
 

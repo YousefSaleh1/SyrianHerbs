@@ -31,11 +31,6 @@ class ContactMessageController extends Controller
         //Note: The Status Is 201
         //beginTransaction
         try {
-<<<<<<< Updated upstream
-            DB::beginTransaction();
-=======
-
->>>>>>> Stashed changes
             $request->validated();
 
             $message=ContactMessage::create([
@@ -43,19 +38,10 @@ class ContactMessageController extends Controller
                 'email' => $request->email,
                 'message' => $request->message,
             ]);
-<<<<<<< Updated upstream
-            DB::commit();
-=======
 
->>>>>>> Stashed changes
-
-            return $this->customeResponse($message, 'message added!', 200);
+            $contactMessage=new ContactMessageResource($message);
+            return $this->customeResponse($contactMessage, 'message added!', 201);
         } catch (\Throwable $th) {
-<<<<<<< Updated upstream
-            DB::rollBack();
-=======
-
->>>>>>> Stashed changes
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
@@ -67,7 +53,7 @@ class ContactMessageController extends Controller
     public function show(ContactMessage $contactMessage)
     {
         $data = new ContactMessageResource($contactMessage);
-        return $this->customeResponse($data, 'Done!', 200);
+        return $this->customeResponse($data, 'Done you can see the message you want', 200);
     }
 
     /**
@@ -77,5 +63,7 @@ class ContactMessageController extends Controller
     {
         $contactMessage->delete();
         return response()->json(['message' => 'ContactMessage Deleted'], 200);
+
     }
+
 }

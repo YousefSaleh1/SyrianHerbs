@@ -28,10 +28,18 @@ class AboutController extends Controller
     public function update(UpdateAboutRequest $request, About $about)
     {
         try {
-            //code...
+            Log::info('Update request received', $request->all());
+            $about->title = $request->title;
+            $about->description = $request->description;
+            if ($request->hasFile('file')) {
+                $about->file = $request->file('file');
+            }
+            $about->save();
+            $response = new AboutResource($about);
+            return $this->customeResponse($response, 'Updated successfully!', 200);
         } catch (\Throwable $th) {
             Log::error($th);
-            return response()->json(['message' => 'Something Error !'], 500);
+            return response()->json(['message' => 'Something went wrong!'], 500);
         }
     }
 }

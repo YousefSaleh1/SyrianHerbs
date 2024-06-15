@@ -13,10 +13,12 @@ class AboutSeeder extends Seeder
      */
     public function run(): void
     {
+        $filePath = storage_path('storage/app/app/aboutus.jfif');
+
         About::create([
-            'title'       => '',
-            'description' => '',
-            // 'file'        => storage_path('storage/app/public/Test/photo_٢٠٢٣-٠٥-٢٢_٠١-٠٢-١٨.jpg'),
+            'title'       => 'About Us Title',
+            'description' => 'This is the about us description.',
+            // 'file' => $filePath,
         ]);
     }
 }

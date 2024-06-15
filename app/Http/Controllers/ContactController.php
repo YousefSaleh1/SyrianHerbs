@@ -39,12 +39,11 @@ class ContactController extends Controller
                 'linkedin_link' => $request->input('linkedin_link', $contact->linkedin_link),
                 'youtube_link' => $request->input('youtube_link', $contact->youtube_link),
             ]);
-    
+
             return $this->customeResponse(new ContactResource($contact), 'Done', 200);
         } catch (\Throwable $th) {
             Log::error($th);
-            return response()->json(['message' => 'Something Error!', 'error' => $th->getMessage()], 500);
-            // return response()->json(['message' => 'Something Error !'], 500);
+            return response()->json(['message' => 'Something Error !'], 500);
         }
     }
 }

@@ -7,19 +7,19 @@ use App\Models\Setting;
 use Illuminate\Http\Request;;
 use App\Http\Resources\SettingResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 use DB;
 
 class SettingController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
 
     /**
      * Display the specified resource.
      */
     public function show(setting $setting)
     {
-
         $data = new SettingResource($setting);
         return $this->customeResponse($data, 'Done!', 200);
     }
@@ -42,8 +42,8 @@ class SettingController extends Controller
             $setting->google_analystic_id = $request->input('google_analystic_id') ?? $setting->google_analystic_id;
             $setting->tags = $request->input('tags') ?? $setting->tags;
 
-            $setting->website_icon = $request->input('website_icon') ?? $setting->website_icon;
-            $setting->website_logo = $request->input('website_logo') ?? $setting->website_logo;
+            $setting->website_icon = $this->fileExists($request, 'Setting', 'website_icon') ?? $setting->file;
+            $setting->website_logo = $this->fileExists($request, 'Setting', 'website_logo') ?? $setting->file;
 
             // save
             $setting->save();

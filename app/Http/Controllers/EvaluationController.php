@@ -8,11 +8,12 @@ use App\Models\Evaluation;
 use Illuminate\Http\Request;;
 use App\Http\Resources\EvaluationResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +31,7 @@ class EvaluationController extends Controller
     {
         try {
             $evaluation = Evaluation::create([
-                'icon'        => $request->icon,
+                'icon'        => $this->uploadFile($request, 'Evaluation', 'icon'),
                 'title'       => $request->title,
                 'description' => $request->description
             ]);
@@ -58,7 +59,7 @@ class EvaluationController extends Controller
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
         try {
-            $evaluation->icon        = $request->input('icon') ?? $evaluation->icon;
+            $evaluation->icon        = $this->fileExists($request, 'Evaluation', 'icone') ?? $evaluation->file;
             $evaluation->title       = $request->input('title') ?? $evaluation->title;
             $evaluation->description = $request->input('description') ?? $evaluation->description;
 

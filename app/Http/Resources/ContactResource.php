@@ -14,6 +14,7 @@ class ContactResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        //Note
         return [
             'id' => $this->id,
             'email' => $this->email,
@@ -25,8 +26,6 @@ class ContactResource extends JsonResource
             'twitter_link' => $this->twitter_link,
             'linkedin_link' => $this->linkedin_link,
             'youtube_link' => $this->youtube_link,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

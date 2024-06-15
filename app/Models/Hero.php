@@ -22,24 +22,4 @@ class Hero extends Model
         'page',
     ];
 
-    /**
-     * Set the "image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setImageAttribute($value)
-    {
-        $this->attributes['image'] = $this->uploadFile($value, 'Hero');
-    }
-
-    /**
-     * Get the "image" attribute.
-     *
-     * @return string
-     */
-    public function getImageAttribute()
-    {
-        return asset(Storage::url($this->attributes['image']));
-    }
 }

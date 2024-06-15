@@ -22,8 +22,8 @@ class UpdateAdvantageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string',
+            'title'       => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'main_image'  => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image1'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image2'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',

@@ -15,7 +15,9 @@ class SettingResource extends JsonResource
     public function toArray(Request $request): array
     {
         // Note : Where is Resource?
+        // Note: where is ID?
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'tags' => $this->tags,
@@ -23,7 +25,6 @@ class SettingResource extends JsonResource
             'google_analystic_id' => $this->google_analystic_id,
             'website_icon' => $this->website_icon,
             'website_logo' => $this->website_logo,
-
         ];
     }
 }

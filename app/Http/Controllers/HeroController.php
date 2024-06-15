@@ -7,11 +7,12 @@ use App\Models\Hero;
 use Illuminate\Http\Request;;
 use App\Http\Resources\HeroResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class HeroController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
 
     /**
      * Display the specified resource.
@@ -29,7 +30,7 @@ class HeroController extends Controller
     {
         try {
             $hero->title = $request->input('title') ?? $hero->title;
-            $hero->image = $request->input('image') ?? $hero->image;
+            $hero->image = $this->fileExists($request, 'Hero', 'image') ?? $hero->file;
 
             $hero->save();
 

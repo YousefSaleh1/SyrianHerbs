@@ -7,11 +7,12 @@ use App\Models\About;
 use Illuminate\Http\Request;;
 use App\Http\Resources\AboutResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class AboutController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
 
     /**
      * Display the specified resource.
@@ -27,13 +28,13 @@ class AboutController extends Controller
      */
     public function update(UpdateAboutRequest $request, About $about)
     {
+        //Note
         try {
             Log::info('Update request received', $request->all());
-            $about->title = $request->title;
-            $about->description = $request->description;
-            if ($request->hasFile('file')) {
-                $about->file = $request->file('file');
-            }
+            $about->title = $request->title ?? $about->title;
+            $about->description = $request->description ?? $about->description;
+            $about->file = $this->fileExists($request, 'About', 'file') ?? $about->file;
+
             $about->save();
             $response = new AboutResource($about);
             return $this->customeResponse($response, 'Updated successfully!', 200);

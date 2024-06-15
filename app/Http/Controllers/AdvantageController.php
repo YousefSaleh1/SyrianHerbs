@@ -7,11 +7,12 @@ use App\Models\Advantage;
 use Illuminate\Http\Request;;
 use App\Http\Resources\AdvantageResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class AdvantageController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
 
     /**
      * Display the specified resource.
@@ -27,33 +28,18 @@ class AdvantageController extends Controller
      */
     public function update(UpdateAdvantageRequest $request, Advantage $advantage)
     {
+        //Note
         try {
             Log::info('Update request received', $request->all());
-            $advantage->title = $request->input('title');
-            $advantage->description = $request->input('description');
+            $advantage->title = $request->input('title') ?? $advantage->title;
+            $advantage->description = $request->input('description') ?? $advantage->description ;
+            $advantage->main_image = $this->fileExists($request, 'Advantage', 'main_image') ?? $advantage->main_image;
+            $advantage->image1 = $this->fileExists($request, 'Advantage', 'image1') ?? $advantage->image1;
+            $advantage->image2 = $this->fileExists($request, 'Advantage', 'image2') ?? $advantage->image2;
+            $advantage->image3 = $this->fileExists($request, 'Advantage', 'image3') ?? $advantage->image3;
+            $advantage->image4 = $this->fileExists($request, 'Advantage', 'image4') ?? $advantage->image4;
+            $advantage->image5 = $this->fileExists($request, 'Advantage', 'image5') ?? $advantage->image5;
 
-            if ($request->hasFile('main_image')) {
-                $advantage->main_image = $request->file('main_image');
-            }
-
-            if ($request->hasFile('image1')) {
-                $advantage->image1 = $request->file('image1');
-            }
-
-            if ($request->hasFile('image2')) {
-                $advantage->image2 = $request->file('image2');
-            }
-
-            if ($request->hasFile('image3')) {
-                $advantage->image3 = $request->file('image3');
-            }
-
-            if ($request->hasFile('image4')) {
-                $advantage->image4 = $request->file('image4');
-            }
-            if ($request->hasFile('image5')) {
-                $advantage->image5 = $request->file('image5');
-            }
             $advantage->save();
             $response = new AdvantageResource($advantage);
             return $this->customeResponse($response, 'Updated successfully!', 200);

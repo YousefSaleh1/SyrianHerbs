@@ -6,13 +6,16 @@ use App\Http\Requests\Policy\StorePolicyRequest;
 use App\Http\Requests\Policy\UpdatePolicyRequest;
 use App\Models\Policy;
 use Illuminate\Http\Request;;
+
 use App\Http\Resources\PolicyResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class PolicyController extends Controller
 {
     use ApiResponseTrait;
+    use UploadFile;
     /**
      * Display a listing of the resource.
      */
@@ -29,11 +32,18 @@ class PolicyController extends Controller
     public function store(StorePolicyRequest $request)
     {
         try {
-            //code...
+            $policy = Policy::create([
+                'policy_number' => $request->policy_number,
+                'icon' => $this->uploadFile($request,'Policy','icon'),
+                'title' => $request->title,
+                'description' => $request->description,
+            ]);
+
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
+        return $this->customeResponse($policy, 'policy created successfully', 201);
     }
 
     /**
@@ -48,14 +58,22 @@ class PolicyController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UpdatePolicyRequest $request, Policy $policy)
     {
         try {
-            //code...
+            $policy->title=$request->input('title') ?? $policy->title;
+            $policy->description=$request->input('description') ?? $policy->description;
+            $policy->icon = $this->fileExists($request,'Policy','icon') ?? $policy->file ;
+            $policy->policy_number=$request->input('policy_number') ?? $policy->policy_number;
+            $policy->save();
+            $data = new PolicyResource($policy);
+            return $this->customeResponse($data, 'policy Updated successfully', 200);
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
         }
+
     }
 
     /**

@@ -23,4 +23,5 @@ class Policy extends Model
         'description',
     ];
 
+    
 }

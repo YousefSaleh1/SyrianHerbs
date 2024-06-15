@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\SettingController;
 
@@ -33,12 +35,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
 /////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////Contact Messages Routes ////////////////////////
-Route::post('/addContactMessage',[ContactMessageController::class,'store']);
-
+Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
+//Note: Parameter
 Route::middleware(['auth:api'])->group(function () {
-Route::get('/allContactMessages',[ContactMessageController::class,'index']);
-Route::get('/showContactMessage/{id}',[ContactMessageController::class,'show']);
-Route::delete('/deleteContactMessage/{id}',[ContactMessageController::class,'destroy']);
+    Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
+    Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
+    Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -81,14 +83,10 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 /////////////////////////////////////////////////////////////////////////////////////
 
 
+
  ///////////////////////////Setting Request ///////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-<<<<<<< Updated upstream
-Route::get('/setting/{id}', [SettingController::class, 'show']);
-Route::put('/update/{setting}', [SettingController::class, 'update'])->middleware('api');
-Route::post('/setting/add', [SettingController::class, 'store']);
-=======
 Route::get('/setting/{setting}', [SettingController::class, 'show']);
 Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('api');
 
@@ -115,4 +113,3 @@ Route::middleware(['api'])->group(function () {
 //-----------------------------------End Brand Requests------------------------------------------//
 
 
->>>>>>> Stashed changes

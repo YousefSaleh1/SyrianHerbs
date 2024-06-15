@@ -18,10 +18,7 @@ class SettingController extends Controller
      * Display the specified resource.
      */
 
-<<<<<<< Updated upstream
-=======
      //Note
->>>>>>> Stashed changes
 
     public function show(setting $setting)
     {

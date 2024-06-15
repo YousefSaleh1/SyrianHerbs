@@ -38,8 +38,8 @@ class ContactMessageController extends Controller
                 'message' => $request->message,
             ]);
        
-
-            return $this->customeResponse($message, 'message added!', 201);
+            $contactMessage=new ContactMessageResource($message);
+            return $this->customeResponse($contactMessage, 'message added!', 201);
         } catch (\Throwable $th) {
           
             Log::error($th);
@@ -50,18 +50,18 @@ class ContactMessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {   $contactMessage=ContactMessage::find($id);
+    public function show(ContactMessage $contactMessage)
+    {  
         $data = new ContactMessageResource($contactMessage);
-        return $this->customeResponse($data, 'Done!', 200);
+        return $this->customeResponse($data, 'Done you can see the message you want', 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {   $contactMessage=ContactMessage::find($id);
-        $contactMessage->delete();
-        return response()->json(['message' => 'ContactMessage Deleted'], 200);
+    public function destroy(ContactMessage $contactMessage)
+    {   
+        $data= $contactMessage->delete();
+        return $this->customeResponse($data, 'Contact Message Deleted!', 200);
     }
 }

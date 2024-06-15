@@ -1,12 +1,12 @@
 <?php
 
-
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\StoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
@@ -40,7 +40,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
 
 //////////////////////Contact Messages Routes ////////////////////////
 Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
-
 Route::middleware(['auth:api'])->group(function () {
 Route::get('/allContactMessages',[ContactMessageController::class,'index']);
 Route::get('/showContactMessage/{contactMessage}',[ContactMessageController::class,'show']);
@@ -88,6 +87,12 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 
 
 
+ ///////////////////////////Setting Request ///////////////////////
+///////////////////////////////////////////////////////////////////////
+
+Route::get('/setting/{setting}', [SettingController::class, 'show']);
+Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('api');
+
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// About us routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -118,10 +123,6 @@ Route::put('/contacts/{contact}', [ContactController::class, 'update']);
 
  ///////////////////////////Setting Request ///////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-Route::get('/setting/{id}', [SettingController::class, 'show']);
-Route::put('/update/{setting}', [SettingController::class, 'update'])->middleware('api');
-Route::post('/setting/add', [SettingController::class, 'store']);
 
 
 Route::get('/categorys', [CategoryController::class, 'index']);

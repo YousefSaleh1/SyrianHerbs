@@ -22,7 +22,10 @@ class UpdatePolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'policy_number' => 'nullable|numeric|min:2|max:50',
+            'icon' => 'image|mimes:svg|max:10000000',
+            'title' => 'nullable|string|max:50|min:5',
+            'description' => 'nullable|string|max:255|min:10',
         ];
     }
 }

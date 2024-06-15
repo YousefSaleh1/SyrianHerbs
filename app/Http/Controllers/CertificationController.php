@@ -18,7 +18,7 @@ class CertificationController extends Controller
      */
     public function index()
     {
-        $certifications = Certification::all();
+        $certifications = Certification::paginate(10);
         $data = CertificationResource::collection($certifications);
         return $this->customeResponse($data, 'Done!', 200);
     }

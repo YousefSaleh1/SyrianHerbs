@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorys = Category::all();
+        $categorys = Category::paginate(10);
         $data = CategoryResource::collection($categorys);
         return $this->customeResponse($data, 'Done!', 200);
     }

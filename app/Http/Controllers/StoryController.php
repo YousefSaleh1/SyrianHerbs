@@ -19,7 +19,7 @@ class StoryController extends Controller
      */
     public function index()
     {
-        $storys = Story::all();
+        $storys = Story::paginate(10);
         $data = StoryResource::collection($storys);
         return $this->customeResponse($data, 'Done!', 200);
     }

@@ -21,7 +21,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::all();
+        $brands = Brand::paginate(10);
         $data = BrandResource::collection($brands);
         return $this->customeResponse($data, 'Done!', 200);
     }

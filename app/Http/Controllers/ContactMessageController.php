@@ -29,7 +29,11 @@ class ContactMessageController extends Controller
     public function store(StoreContactMessageRequest $request)
     {
         try {
+<<<<<<< Updated upstream
             DB::beginTransaction();
+=======
+
+>>>>>>> Stashed changes
             $request->validated();
 
             $message=ContactMessage::create([
@@ -37,11 +41,19 @@ class ContactMessageController extends Controller
                 'email' => $request->email,
                 'message' => $request->message,
             ]);
+<<<<<<< Updated upstream
             DB::commit();
+=======
+
+>>>>>>> Stashed changes
 
             return $this->customeResponse($message, 'message added!', 200);
         } catch (\Throwable $th) {
+<<<<<<< Updated upstream
             DB::rollBack();
+=======
+
+>>>>>>> Stashed changes
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }

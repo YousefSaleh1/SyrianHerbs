@@ -84,6 +84,35 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
  ///////////////////////////Setting Request ///////////////////////
 ///////////////////////////////////////////////////////////////////////
 
+<<<<<<< Updated upstream
 Route::get('/setting/{id}', [SettingController::class, 'show']);
 Route::put('/update/{setting}', [SettingController::class, 'update'])->middleware('api');
 Route::post('/setting/add', [SettingController::class, 'store']);
+=======
+Route::get('/setting/{setting}', [SettingController::class, 'show']);
+Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('api');
+
+
+Route::get('/categorys', [CategoryController::class, 'index']);
+Route::post('/add', [CategoryController::class, 'store'])->middleware('api');;
+Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('api');
+Route::get('/categorys/{category}', [CategoryController::class, 'show'])->middleware('api');
+Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('api');
+/////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// End Category Requests //////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//-----------------------------------Brand Requests------------------------------------------//
+Route::middleware(['api'])->group(function () {
+    Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/brands/{brand}', [BrandController::class, 'show']);
+    Route::post('/create-brand', [BrandController::class, 'store']);
+    Route::post('/brands/{brand}', [BrandController::class, 'update']);
+    Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
+});
+//-----------------------------------End Brand Requests------------------------------------------//
+
+
+>>>>>>> Stashed changes

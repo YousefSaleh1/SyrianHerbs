@@ -18,45 +18,20 @@ class SettingController extends Controller
      * Display the specified resource.
      */
 
+<<<<<<< Updated upstream
+=======
+     //Note
+>>>>>>> Stashed changes
 
-    public function show($id)
+    public function show(setting $setting)
     {
 
-        if($id){
-            $setting=Setting::find($id);
-            return response()->json($setting);
-        }
-        else{
-            return response(["msg" => "Setting didnt exist", 401 ]);
-        }
+        $data = new SettingResource($setting);
+        return $this->customeResponse($data, 'Done!', 200);
     }
 
 
 
-/*
-    public function store(UpdateSettingRequest $request)
-    {
-        try {
-            $data = $request->validated();
-
-            $setting = new Setting();
-            $setting->title = $data['title'];
-            $setting->description = $data['description'];
-            $setting->meta_pixel_id = $data['meta_pixel_id'];
-            $setting->google_analystic_id = $data['google_analystic_id'];
-            $setting->tags = $data['tags'];
-            $setting->website_icon = $data['website_icon'];
-            $setting->website_logo = $data['website_logo'];
-
-            $setting->save();
-
-            return response()->json(["msg" => "Setting added successfully"], 201);
-        } catch (\Throwable $th) {
-            Log::error($th);
-            return response()->json(['message' => 'Something went wrong!'], 500);
-        }
-    }
-    */
 
     /**
      * Update the specified resource in storage.
@@ -88,4 +63,6 @@ class SettingController extends Controller
         }
     }
 }
+
+
 

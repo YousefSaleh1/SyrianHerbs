@@ -22,9 +22,9 @@ class UpdateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'website_icon' => ' nullable|image ',
+        'website_icon' => ' nullable|image|mimetypes:image/svg ',
         'website_logo' => ' nullable|image|mimetypes:image/jpeg,image/png,image/gif,image/jpg',
-        'title' => ' required|string|max:255 ',
+        'title' => ' nullable|string|max:255 ',
         'description' => ' nullable|string|max:1000 ',
         'tags' => 'nullable|string|max:255',
         'meta_pixel_id' => ' nullable|string|max:255 ',

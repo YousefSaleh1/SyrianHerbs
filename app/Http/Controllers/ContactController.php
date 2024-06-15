@@ -28,10 +28,23 @@ class ContactController extends Controller
     public function update(UpdateContactRequest $request, Contact $contact)
     {
         try {
-            //code...
+            $contact->update([
+                'email' => $request->input('email', $contact->email),
+                'phone_number' => $request->input('phone_number', $contact->phone_number),
+                'adresses' => $request->input('adresses', $contact->adresses),
+                'facebook_link' => $request->input('facebook_link', $contact->facebook_link),
+                'instegram_link' => $request->input('instegram_link', $contact->instegram_link),
+                'whatsApp_number' => $request->input('whatsApp_number', $contact->whatsApp_number),
+                'twitter_link' => $request->input('twitter_link', $contact->twitter_link),
+                'linkedin_link' => $request->input('linkedin_link', $contact->linkedin_link),
+                'youtube_link' => $request->input('youtube_link', $contact->youtube_link),
+            ]);
+    
+            return $this->customeResponse(new ContactResource($contact), 'Done', 200);
         } catch (\Throwable $th) {
             Log::error($th);
-            return response()->json(['message' => 'Something Error !'], 500);
+            return response()->json(['message' => 'Something Error!', 'error' => $th->getMessage()], 500);
+            // return response()->json(['message' => 'Something Error !'], 500);
         }
     }
 }

@@ -38,11 +38,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
 
 //////////////////////Contact Messages Routes ////////////////////////
 Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
-//Note: Parameter
+
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
-    Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
-    Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
+Route::get('/allContactMessages',[ContactMessageController::class,'index']);
+Route::get('/showContactMessage/{contactMessage}',[ContactMessageController::class,'show']);
+Route::delete('/deleteContactMessage/{contactMessage}',[ContactMessageController::class,'destroy']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////

@@ -28,8 +28,10 @@ class ContactMessageController extends Controller
      */
     public function store(StoreContactMessageRequest $request)
     {
+        //Note: The Status Is 201
+        //beginTransaction
         try {
-            DB::beginTransaction();
+          
             $request->validated();
 
             $message=ContactMessage::create([
@@ -37,11 +39,11 @@ class ContactMessageController extends Controller
                 'email' => $request->email,
                 'message' => $request->message,
             ]);
-            DB::commit();
+       
 
-            return $this->customeResponse($message, 'message added!', 200);
+            return $this->customeResponse($message, 'message added!', 201);
         } catch (\Throwable $th) {
-            DB::rollBack();
+          
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
@@ -50,8 +52,8 @@ class ContactMessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {   $contactMessage=ContactMessage::find($id);
+    public function show(ContactMessage $contactMessage)
+    {
         $data = new ContactMessageResource($contactMessage);
         return $this->customeResponse($data, 'Done!', 200);
     }
@@ -59,8 +61,8 @@ class ContactMessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {   $contactMessage=ContactMessage::find($id);
+    public function destroy(ContactMessage $contactMessage)
+    {
         $contactMessage->delete();
         return response()->json(['message' => 'ContactMessage Deleted'], 200);
     }

@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(10);
-        $data = ProductResource::collection($products);
+        $data = $products->through(fn($product) => new ProductResource($product));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

@@ -19,7 +19,7 @@ class ContactMessageController extends Controller
     public function index()
     {
         $contactMessages = ContactMessage::paginate(10);
-        $data = ContactMessageResource::collection($contactMessages);
+        $data = $contactMessages->through(fn($contactMessage) => new ContactMessageResource($contactMessage));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

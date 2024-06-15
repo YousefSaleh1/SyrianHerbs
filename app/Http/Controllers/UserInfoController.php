@@ -19,7 +19,7 @@ class UserInfoController extends Controller
     public function index()
     {
         $userInfos = UserInfo::paginate(10);
-        $data = UserInfoResource::collection($userInfos);
+        $data = $userInfos->through(fn($userInfo) => new UserInfoResource($userInfo));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

@@ -22,7 +22,7 @@ class PolicyController extends Controller
     public function index()
     {
         $policys = Policy::paginate(10);
-        $data = PolicyResource::collection($policys);
+        $data = $policys->through(fn($policy) => new PolicyResource($policy));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

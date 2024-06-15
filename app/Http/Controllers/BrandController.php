@@ -22,7 +22,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::paginate(10);
-        $data = BrandResource::collection($brands);
+        $data = $brands->through(fn($brand) => new BrandResource($brand));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

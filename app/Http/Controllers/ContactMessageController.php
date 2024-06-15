@@ -28,6 +28,8 @@ class ContactMessageController extends Controller
      */
     public function store(StoreContactMessageRequest $request)
     {
+        //Note: The Status Is 201
+        //beginTransaction
         try {
           
             $request->validated();
@@ -51,7 +53,8 @@ class ContactMessageController extends Controller
      * Display the specified resource.
      */
     public function show(ContactMessage $contactMessage)
-    {  
+    {
+
         $data = new ContactMessageResource($contactMessage);
         return $this->customeResponse($data, 'Done you can see the message you want', 200);
     }
@@ -60,8 +63,10 @@ class ContactMessageController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(ContactMessage $contactMessage)
+
     {   
         $data= $contactMessage->delete();
         return $this->customeResponse($data, 'Contact Message Deleted!', 200);
     }
+
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContactMessage\StoreContactMessageRequest;
-use App\Models\ContactMessage;
 use Illuminate\Http\Request;;
-use App\Http\Resources\ContactMessageResource;
-use App\Http\Traits\ApiResponseTrait;
+use App\Models\ContactMessage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ApiResponseTrait;
+use App\Http\Resources\ContactMessageResource;
+use App\Http\Requests\ContactMessage\StoreContactMessageRequest;
 
 class ContactMessageController extends Controller
 {
@@ -27,8 +28,19 @@ class ContactMessageController extends Controller
      */
     public function store(StoreContactMessageRequest $request)
     {
+        //Note: The Status Is 201
+        //beginTransaction
         try {
-            //code...
+            $request->validated();
+
+            $message=ContactMessage::create([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'message' => $request->message,
+            ]);
+
+            $contactMessage=new ContactMessageResource($message);
+            return $this->customeResponse($contactMessage, 'message added!', 201);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
@@ -41,7 +53,7 @@ class ContactMessageController extends Controller
     public function show(ContactMessage $contactMessage)
     {
         $data = new ContactMessageResource($contactMessage);
-        return $this->customeResponse($data, 'Done!', 200);
+        return $this->customeResponse($data, 'Done you can see the message you want', 200);
     }
 
     /**
@@ -51,5 +63,7 @@ class ContactMessageController extends Controller
     {
         $contactMessage->delete();
         return response()->json(['message' => 'ContactMessage Deleted'], 200);
+
     }
+
 }

@@ -3,21 +3,29 @@
 namespace App\Http\Traits;
 
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use League\Flysystem\Visibility;
 
 trait UploadFile
 {
     /**
-     * Upload a file to the specified folder.
+     * Upload a file.
      *
-     * @param  mixed  $request
-     * @param  string  $folder
-     * @return string
-     * @throws \Exception
+     * This method uploads a file to the specified folder and returns the file path.
+     *
+     * @param  Request  $request The HTTP request object.
+     * @param  string  $folder The folder to upload the file to.
+     * @param  string  $fileColumnName The name of the file input field in the request.
+     * @return string The file path.
+     *
+     * @throws Exception If the file name contains multiple file extensions.
      */
-    public function uploadFile($request, $folder)
+    public function uploadFile(Request $request, string $folder, string $fileColumnName)
     {
-        $file = $request;
+
+        $file = $request->file($fileColumnName);
         $originalName = $file->getClientOriginalName();
 
         if (preg_match('/\.[^.]+\./', $originalName)) {
@@ -29,6 +37,27 @@ trait UploadFile
         $type = explode('/', $mime_type);
 
         $path = $file->storeAs($folder, $fileName . '.' . end($type), 'public');
-        return $path;
+
+        $url = asset(Storage::url($path));
+        return $url;
+    }
+
+    /**
+     * Check if a file exists and upload it.
+     *
+     * This method checks if a file exists in the request and uploads it to the specified folder.
+     * If the file doesn't exist, it returns null.
+     *
+     * @param  Request  $request The HTTP request object.
+     * @param  string  $folder The folder to upload the file to.
+     * @param  string  $fileColumnName The name of the file input field in the request.
+     * @return string|null The file path if the file exists, otherwise null.
+     */
+    public function fileExists(Request $request, string $folder, string $fileColumnName)
+    {
+        if (empty($request->file($fileColumnName))) {
+            return null;
+        }
+        return $this->uploadFile($request, $folder, $fileColumnName);
     }
 }

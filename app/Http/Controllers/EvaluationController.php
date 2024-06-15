@@ -8,11 +8,12 @@ use App\Models\Evaluation;
 use Illuminate\Http\Request;;
 use App\Http\Resources\EvaluationResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +30,14 @@ class EvaluationController extends Controller
     public function store(StoreEvaluationRequest $request)
     {
         try {
-            //code...
+            $evaluation = Evaluation::create([
+                'icon'        => $this->uploadFile($request, 'Evaluation', 'icon'),
+                'title'       => $request->title,
+                'description' => $request->description
+            ]);
+
+            $data = new EvaluationResource($evaluation);
+            return $this->customeResponse($data, 'Successfully Created', 201);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
@@ -51,7 +59,14 @@ class EvaluationController extends Controller
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
         try {
-            //code...
+            $evaluation->icon        = $this->fileExists($request, 'Evaluation', 'icone') ?? $evaluation->file;
+            $evaluation->title       = $request->input('title') ?? $evaluation->title;
+            $evaluation->description = $request->input('description') ?? $evaluation->description;
+
+            $evaluation->save();
+
+            $data = new EvaluationResource($evaluation);
+            return $this->customeResponse($data, 'Successfully Updated',200);
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);

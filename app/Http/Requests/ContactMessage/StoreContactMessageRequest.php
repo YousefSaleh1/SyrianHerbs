@@ -22,7 +22,9 @@ class StoreContactMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'full_name' =>'required|string|max:50',
+            'email' =>'required|string|email',
+            'message' =>'required|string|max:500',
         ];
     }
 }

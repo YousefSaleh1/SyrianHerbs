@@ -22,7 +22,8 @@ class UpdateHeroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'nullable|string|max:50',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
         ];
     }
 }

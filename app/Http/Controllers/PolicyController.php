@@ -32,7 +32,7 @@ class PolicyController extends Controller
         try {
             $policy = Policy::create([
                 'policy_number' => $request->policy_number,
-                'icon' => $request->icon,
+                'icon' => $this->uploadFile($request,'Policy','icon'),
                 'title' => $request->title,
                 'description' => $request->description,
             ]);

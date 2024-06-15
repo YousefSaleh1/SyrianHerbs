@@ -21,25 +21,4 @@ class Evaluation extends Model
         'title',
         'description',
     ];
-
-    /**
-     * Set the "icon" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setIconAttribute($value)
-    {
-        $this->attributes['icon'] = $this->uploadFile($value, 'Evaluation');
-    }
-
-    /**
-     * Get the "icon" attribute.
-     *
-     * @return string
-     */
-    public function getIconAttribute()
-    {
-        return asset(Storage::url($this->icon));
-    }
 }

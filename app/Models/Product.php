@@ -53,45 +53,4 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id', 'other_key');
     }
 
-    /**
-     * Set the "main_image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setMainImageAttribute($value)
-    {
-        $this->attributes['main_image'] = $this->uploadFile($value, 'Product');
-    }
-
-    /**
-     * Get the "main_image" attribute.
-     *
-     * @return string
-     */
-    public function getMainImageAttribute()
-    {
-        return asset(Storage::url($this->main_image));
-    }
-
-    /**
-     * Set the "additional_image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setAdditionalImageAttribute($value)
-    {
-        $this->attributes['additional_image'] = $this->uploadFile($value, 'Product');
-    }
-
-    /**
-     * Get the "additional_image" attribute.
-     *
-     * @return string
-     */
-    public function getAdditionalImageAttribute()
-    {
-        return asset(Storage::url($this->additional_image));
-    }
 }

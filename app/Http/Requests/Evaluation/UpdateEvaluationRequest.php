@@ -22,7 +22,9 @@ class UpdateEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'icon'        => 'nullable|image|mimes:svg|max:10000|mimetypes:image/svg,image',
+            'title'       => 'nullable|string|max:225',
+            'description' => 'nullable|string'
         ];
     }
 }

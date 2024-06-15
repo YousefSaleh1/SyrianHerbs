@@ -15,7 +15,10 @@ class EvaluationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            //
+            'id'          => $this->id,
+            'icon'        => $this->icon,
+            'title'       => $this->title,
+            'description' => $this->description,
         ];
     }
 }

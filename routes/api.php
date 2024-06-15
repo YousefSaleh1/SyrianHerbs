@@ -1,9 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PolicyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
+
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdvantageController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +28,8 @@ use Illuminate\Support\Facades\Route;
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('api');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware("auth:api");
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// End Auth Requests //////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Policy Requests ////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
-
-Route::apiResource('policy',PolicyController::class);

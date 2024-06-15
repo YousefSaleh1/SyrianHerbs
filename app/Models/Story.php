@@ -21,24 +21,4 @@ class Story extends Model
         'description',
     ];
 
-    /**
-     * Set the "file" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setFileAttribute($value)
-    {
-        $this->attributes['file'] = $this->uploadFile($value, 'Story');
-    }
-
-    /**
-     * Get the "file" attribute.
-     *
-     * @return string
-     */
-    public function getFileAttribute()
-    {
-        return asset(Storage::url($this->file));
-    }
 }

@@ -9,11 +9,13 @@ use Illuminate\Http\Request;;
 
 use App\Http\Resources\PolicyResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class PolicyController extends Controller
 {
     use ApiResponseTrait;
+    use UploadFile;
     /**
      * Display a listing of the resource.
      */
@@ -62,7 +64,7 @@ class PolicyController extends Controller
         try {
             $policy->title=$request->input('title') ?? $policy->title;
             $policy->description=$request->input('description') ?? $policy->description;
-            // $policy->icon=$request->input('icon') ?? $policy->icon;
+            $policy->icon = $this->fileExists($request,'Policy','icon') ?? $policy->file ;
             $policy->policy_number=$request->input('policy_number') ?? $policy->policy_number;
             $policy->save();
             $data = new PolicyResource($policy);

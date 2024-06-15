@@ -43,7 +43,8 @@ class PolicyController extends Controller
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
-        return $this->customeResponse($policy, 'policy created successfully', 201);
+        $data = new PolicyResource($policy);
+        return $this->customeResponse($data, 'policy created successfully', 201);
     }
 
     /**

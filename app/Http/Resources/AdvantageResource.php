@@ -15,7 +15,17 @@ class AdvantageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            //
+            'id'          => $this->id,
+            'title'       => $this->title,
+            'description' => $this->description,
+            'main_image'  => $this->main_image,
+            'images'      => [
+                $this->image1,
+                $this->image2,
+                $this->image3,
+                $this->image4,
+                $this->image5,
+            ],
         ];
     }
 }

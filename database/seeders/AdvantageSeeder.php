@@ -14,8 +14,8 @@ class AdvantageSeeder extends Seeder
     public function run(): void
     {
         Advantage::create([
-            'title'       => '',
-            'description' => '',
+            'title'       => 'test',
+            'description' => 'test',
             // 'main_image'  => '',
             // 'image1'      => '',
             // 'image2'      => '',

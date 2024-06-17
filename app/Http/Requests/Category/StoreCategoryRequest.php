@@ -22,7 +22,9 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'published' => 'required|boolean',
+            'brand_id' => 'required|exists:brands,id', 
         ];
     }
 }

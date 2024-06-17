@@ -22,7 +22,11 @@ class StoreCertificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'icon'        => 'required|image|mimes:svg|max:10000',
+            'name'        => 'required|string|min:2|max:25',
+            'subname'     => 'required|string|min:2|max:25',
+            'photo'       => 'required|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
+            'description' => 'required|string|min:2|max:25',
         ];
     }
 }

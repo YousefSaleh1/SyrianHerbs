@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use App\Http\Traits\UploadFile;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
 {
-    use HasFactory, UploadFile;
+    use HasFactory, UploadFile , Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -47,5 +47,15 @@ class Brand extends Model
     {
         return $this->hasMany(Product::class, 'brand_id', 'id');
     }
+
+
+
+    /* Search By BrandName */
+    public function toSearchableArray(): array
+    {
+        return [
+            'name'     => $this->name,
+        ];
+    } 
 
 }

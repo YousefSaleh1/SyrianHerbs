@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Brand\StoreBrandRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Models\Brand;
-use Illuminate\Http\Request;;
-
 use App\Http\Resources\BrandResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\UploadFile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
@@ -46,7 +43,6 @@ class BrandController extends Controller
             $data = new BrandResource($brand);
             return $this->customeResponse($data, 'brand created successful', 201);
         } catch (\Throwable $th) {
-            DB::rollBack();
             Log::error($th);
             return $this->customeResponse(null, 'Failed', 500);
         }
@@ -92,4 +88,16 @@ class BrandController extends Controller
         $brand->delete();
         return $this->customeResponse(null, 'brand deleted successfully', 200);
     }
+
+
+    /**
+     * Search By BrandName :
+    */
+
+    public function searchByBrandName($searchBrand)
+    {
+        $brands= Brand::search($searchBrand)->get();
+        return $this->customeResponse($brands, 'search by Brand Name was successful', 200);  
+    }
+
 }

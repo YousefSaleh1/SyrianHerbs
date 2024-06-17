@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController;
-
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\AdvantageController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ContactMessageController;
-use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HeroController;
-use App\Http\Controllers\PolicyController;
-use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdvantageController;
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\ContactMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,5 +152,38 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/create-brand', [BrandController::class, 'store']);
     Route::post('/brands/{brand}', [BrandController::class, 'update']);
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
+
+
+    /* Search By BrandName */
+    Route::get('/brands/searchbybrandName/{searchBrand}', [BrandController::class, 'searchByBrandName']);
 });
 //-----------------------------------End Brand Requests------------------------------------------//
+
+
+
+
+/* ------------------------------------ Products Requests --------------------------------------- */
+Route::middleware(['auth:api'])->group(function () {
+    Route::post('/products/create', [ProductController::class, 'store']);
+    Route::put('/products/{product}', [ProductController::class, 'update']);
+    Route::delete('/products/{product}', [ProductController::class, 'destroy']);
+
+    /* duplicate method */
+    Route::post('products/{product}/duplicate', [ProductController::class, 'duplicateProduct']);
+    
+    /* search method By nameProduct */
+    Route::get('/products/search/{search}', [ProductController::class, 'search']);
+
+    /* Filter By category */
+    Route::get('/products/filterbycategory/{category}', [ProductController::class, 'filterByCategory']);
+
+    /* Filter By Brand */
+    Route::get('/products/filterbybrand/{brand}', [ProductController::class, 'filterByBrand']);
+
+
+});
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
+
+/*------------------------------- End Of Products ----------------------------------------------*/

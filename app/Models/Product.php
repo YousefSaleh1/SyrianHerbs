@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use App\Http\Traits\UploadFile;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, UploadFile;
+    use HasFactory, UploadFile ,  Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +53,36 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'other_key');
     }
+
+
+    /* Search By Name Product */
+   /*  public function toSearchableArray(): array
+    {
+        return [
+            'name'     => $this->name,
+            'subname1' => $this->subname1,
+            'subname2' => $this->subname2,
+        ];
+    }
+ */
+
+  /*   public function toSearchableArray(): array
+    {
+        $searchable = [];
+
+        if (!empty($this->name)&& !empty($this->subname1)&& !empty($this->subname2)) {
+            $searchable = [
+                'name'     => $this->name,
+                'subname1' => $this->subname1,
+                'subname2' => $this->subname2,
+            ];
+        } elseif (!empty($this->brand->name)) {
+            $searchable = [
+                'brand'  => $this->brand->name,
+            ];
+        }
+    
+        return $searchable;
+    } */
 
 }

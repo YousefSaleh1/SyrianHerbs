@@ -85,7 +85,7 @@ class ProductController extends Controller
 
             $product->save();
             return $this->customeResponse(new ProductResource($product), 'Product updated Successfully', 200);
-        
+
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
@@ -104,12 +104,10 @@ class ProductController extends Controller
     /**
      * Duplicate the Product .
     */
-
     public function duplicateProduct(Product $product)
     {
         $newProduct = $product->replicate();
         $newProduct->save();
-
         return $this->customeResponse(new DuplicateProduct($newProduct), 'Product duplicated successfully', 200);
     }
 
@@ -120,7 +118,7 @@ class ProductController extends Controller
     public function search($search)
     {
         $products= Product::search($search)->get();
-        return $this->customeResponse($products, 'search by name was successful', 200);  
+        return $this->customeResponse($products, 'search by name was successful', 200);
     }
 
 
@@ -133,7 +131,7 @@ class ProductController extends Controller
     public function filterByCategory($category)
     {
         $products = Product::where('category_id', $category)->get();
-        return $this->customeResponse($products, ' Filter By Category was successful', 200); 
+        return $this->customeResponse($products, ' Filter By Category was successful', 200);
     }
 
     /**
@@ -143,7 +141,7 @@ class ProductController extends Controller
     public function filterByBrand($brand)
     {
         $products = Product::where('brand_id', $brand)->get();
-        return $this->customeResponse($products, ' Filter By Brand was successful', 200); 
+        return $this->customeResponse($products, ' Filter By Brand was successful', 200);
     }
 
 }

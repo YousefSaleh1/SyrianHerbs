@@ -20,7 +20,7 @@ class EvaluationController extends Controller
     public function index()
     {
         $evaluations = Evaluation::paginate(10);
-        $data = $evaluations->through(fn($evaluation) => new EvaluationResource($evaluation));
+        $data = EvaluationResource::collection($evaluations);
         return $this->customeResponse($data, 'Done!', 200);
     }
 
@@ -59,7 +59,7 @@ class EvaluationController extends Controller
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
         try {
-            $evaluation->icon        = $this->fileExists($request, 'Evaluation', 'icone') ?? $evaluation->file;
+            $evaluation->icon        = $this->fileExists($request, 'Evaluation', 'icon') ?? $evaluation->icon;
             $evaluation->title       = $request->input('title') ?? $evaluation->title;
             $evaluation->description = $request->input('description') ?? $evaluation->description;
 

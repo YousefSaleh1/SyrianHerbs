@@ -8,18 +8,19 @@ use App\Models\Story;
 use Illuminate\Http\Request;;
 use App\Http\Resources\StoryResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 
 class StoryController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $storys = Story::all();
-        $data = StoryResource::collection($storys);
+        $storys = Story::paginate(10);
+        $data = $storys->through(fn($story) => new StoryResource($story));
         return $this->customeResponse($data, 'Done!', 200);
     }
 
@@ -31,7 +32,7 @@ class StoryController extends Controller
         try {
             $story = Story::create([
                 'description' => $request->description,
-                'file'        => $request->file
+                'file'        => $this->uploadFile($request, 'Story', 'file')
             ]);
 
             $data = new StoryResource($story);
@@ -58,7 +59,7 @@ class StoryController extends Controller
     {
         try {
             $story->description = $request->input('description') ?? $story->description;
-            $story->file = $request->input('file') ?? $story->file;
+            $story->file = $this->fileExists($request, 'Story', 'file') ?? $story->file;
 
             $story->save();
 

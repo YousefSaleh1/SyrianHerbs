@@ -7,57 +7,25 @@ use App\Models\Setting;
 use Illuminate\Http\Request;;
 use App\Http\Resources\SettingResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\UploadFile;
 use Illuminate\Support\Facades\Log;
 use DB;
 
 class SettingController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, UploadFile;
 
     /**
      * Display the specified resource.
      */
-
-     //Note 
-
-    public function show($id)
+    public function show(setting $setting)
     {
-
-        if($id){
-            $setting=Setting::find($id);
-            return response()->json($setting);
-        }
-        else{
-            return response(["msg" => "Setting didnt exist", 401 ]);
-        }
+        $data = new SettingResource($setting);
+        return $this->customeResponse($data, 'Done!', 200);
     }
 
 
 
-/*
-    public function store(UpdateSettingRequest $request)
-    {
-        try {
-            $data = $request->validated();
-
-            $setting = new Setting();
-            $setting->title = $data['title'];
-            $setting->description = $data['description'];
-            $setting->meta_pixel_id = $data['meta_pixel_id'];
-            $setting->google_analystic_id = $data['google_analystic_id'];
-            $setting->tags = $data['tags'];
-            $setting->website_icon = $data['website_icon'];
-            $setting->website_logo = $data['website_logo'];
-
-            $setting->save();
-
-            return response()->json(["msg" => "Setting added successfully"], 201);
-        } catch (\Throwable $th) {
-            Log::error($th);
-            return response()->json(['message' => 'Something went wrong!'], 500);
-        }
-    }
-    */
 
     /**
      * Update the specified resource in storage.
@@ -74,8 +42,8 @@ class SettingController extends Controller
             $setting->google_analystic_id = $request->input('google_analystic_id') ?? $setting->google_analystic_id;
             $setting->tags = $request->input('tags') ?? $setting->tags;
 
-            $setting->website_icon = $request->input('website_icon') ?? $setting->website_icon;
-            $setting->website_logo = $request->input('website_logo') ?? $setting->website_logo;
+            $setting->website_icon = $this->fileExists($request, 'Setting', 'website_icon') ?? $setting->file;
+            $setting->website_logo = $this->fileExists($request, 'Setting', 'website_logo') ?? $setting->file;
 
             // save
             $setting->save();
@@ -89,4 +57,6 @@ class SettingController extends Controller
         }
     }
 }
+
+
 

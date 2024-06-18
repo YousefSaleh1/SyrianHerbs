@@ -23,7 +23,9 @@ class StoreCategoryRequest extends FormRequest
     {
         //Note: Where is Form Request In Store?
         return [
-            //
+            'name' => 'required|string',
+            'published' => 'required|boolean',
+            'brand_id' => 'required|exists:brands,id', 
         ];
     }
 }

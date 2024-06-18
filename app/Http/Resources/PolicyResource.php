@@ -15,7 +15,11 @@ class PolicyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            //
+            'id'=>$this->id,
+            'policy_number'=>$this->policy_number,
+            'icon'=>$this->icon,
+            'title'=>$this->title,
+            'description'=>$this->description,
         ];
     }
 }

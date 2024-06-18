@@ -20,10 +20,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        // $categorys = Category::all();
+        // $data = CategoryResource::collection($categorys);
+        // return $this->customeResponse($data, 'Done!', 200);
 
-        $categorys = Category::all();
-        $data = CategoryResource::collection($categorys);
-        return $this->customeResponse($data, 'Done!', 200);
+        $items =Category::all();
+        return response()->json($items);
 
     }
 
@@ -34,16 +36,13 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        try {
-            $data = $request->validate([
-                "name" => 'required|string',
-                "published" => 'required|boolean',
-            ]);
 
+        try {
             $category = Category::create([
-                'name'        => $request->name,
+                'name' => $request->name,
                 'published' => $request->published
             ]);
+    
             $brandId = $request->input('brand_id');
             $category->brands()->attach($brandId);
 
@@ -53,7 +52,6 @@ class CategoryController extends Controller
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
         }
-
     }
 
 
@@ -64,8 +62,6 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-
-
     if($category){
         $data = new CategoryResource($category);
         return $this->customeResponse($data, 'Done!', 200);
@@ -81,13 +77,9 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+
        //Note: Validate must be in Form Request
         try {
-            $data = $request->validate([
-                "name" => 'required|string',
-                "published" => 'required|boolean',
-            ]);
-
             $category->name        = $request->input('name') ?? $category->name;
             $category->published       = $request->input('published') ?? $category->published;
 
@@ -99,8 +91,6 @@ class CategoryController extends Controller
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
         }
-
-
     }
 
     /**
@@ -108,7 +98,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-
         if($category){
             $category->brands()->detach();
             $category->delete();
@@ -118,11 +107,5 @@ class CategoryController extends Controller
         }
 
     }
-
-
-
-
-
-
 }
 

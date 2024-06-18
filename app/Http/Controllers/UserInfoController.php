@@ -18,8 +18,8 @@ class UserInfoController extends Controller
      */
     public function index()
     {
-        $userInfos = UserInfo::all();
-        $data = UserInfoResource::collection($userInfos);
+        $userInfos = UserInfo::paginate(10);
+        $data = $userInfos->through(fn($userInfo) => new UserInfoResource($userInfo));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

@@ -22,7 +22,7 @@ class StoreEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'icon'        => 'required|image|mimes:svg|max:10000|mimetypes:image/svg,image',
+            'icon'        => 'required|image|mimes:svg|max:10000',
             'title'       => 'required|string|max:225',
             'description' => 'required|string'
         ];

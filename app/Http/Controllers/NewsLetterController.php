@@ -17,8 +17,8 @@ class NewsLetterController extends Controller
      */
     public function index()
     {
-        $newsLetters = NewsLetter::all();
-        $data = NewsLetterResource::collection($newsLetters);
+        $newsLetters = NewsLetter::paginate(10);
+        $data = $newsLetters->through(fn($newsLetter) => new NewsLetterResource($newsLetter));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

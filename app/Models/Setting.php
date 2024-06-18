@@ -26,45 +26,4 @@ class Setting extends Model
         'google_analystic_id',
     ];
 
-    /**
-     * Set the "website_icon" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setWebsiteIconAttribute($value)
-    {
-        $this->attributes['website_icon'] = $this->uploadFile($value, 'Setting');
-    }
-
-    /**
-     * Get the "website_icon" attribute.
-     *
-     * @return string
-     */
-    public function getWebsiteIconAttribute()
-    {
-        return asset(Storage::url($this->attributes['website_icon']));
-    }
-
-    /**
-     * Set the "website_logo" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setWebsiteLogoAttribute($value)
-    {
-        $this->attributes['website_logo'] = $this->uploadFile($value, 'Setting');
-    }
-
-    /**
-     * Get the "website_logo" attribute.
-     *
-     * @return string
-     */
-    public function getWebsiteLogoAttribute()
-    {
-        return asset(Storage::url($this->attributes['website_logo']));
-    }
 }

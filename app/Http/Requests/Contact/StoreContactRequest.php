@@ -22,7 +22,15 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => 'required|email',
+            'phone_number' => 'required|string',
+            'adresses' => 'required|string',
+            'facebook_link' => 'required|url',
+            'instegram_link' => 'required|url',
+            'whatsApp_number' => 'required|string',
+            'twitter_link' => 'required|url',
+            'linkedin_link' => 'required|url',
+            'youtube_link' => 'required|url',
         ];
     }
 }

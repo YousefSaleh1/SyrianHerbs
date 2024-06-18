@@ -24,45 +24,4 @@ class Certification extends Model
         'description',
     ];
 
-    /**
-     * Set the "icon" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setIconAttribute($value)
-    {
-        $this->attributes['icon'] = $this->uploadFile($value, 'Certification');
-    }
-
-    /**
-     * Get the "icon" attribute.
-     *
-     * @return string
-     */
-    public function getIconAttribute()
-    {
-        return asset(Storage::url($this->attributes['icon']));
-    }
-
-    /**
-     * Set the "photo" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setPhotoAttribute($value)
-    {
-        $this->attributes['photo'] = $this->uploadFile($value, 'Certification');
-    }
-
-    /**
-     * Get the "photo" attribute.
-     *
-     * @return string
-     */
-    public function getPhotoAttribute()
-    {
-        return asset(Storage::url($this->attributes['photo']));
-    }
 }

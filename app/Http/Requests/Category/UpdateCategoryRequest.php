@@ -23,9 +23,10 @@ class UpdateCategoryRequest extends FormRequest
     {
         //Note: Where is Form Request In Update?
         return [
-            'name' => 'nullable|string',
-            'published' => 'nullable|boolean',
-            'brand_id' => 'nullable|exists:brands,id',
+            'name' => 'required|string',
+            'published' => 'required|boolean',
+            'brand_id' => 'required|array',
+            'brand_id.*' => 'exists:brands,id'
         ];
     }
 }

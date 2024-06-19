@@ -42,7 +42,7 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'published' => $request->published
             ]);
-    
+
             $brandId = $request->input('brand_id');
             $category->brands()->attach($brandId);
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
         if($category){
             $category->brands()->detach();
             $category->delete();
-            return response(["msg"=>"category was deleted successfolly "],201);
+            return response(["msg"=>"category was deleted successfolly "],200);
         }else{
             return response(["msg"=>"didn't success"],401);
         }

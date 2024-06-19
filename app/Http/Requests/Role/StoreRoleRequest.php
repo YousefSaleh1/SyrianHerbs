@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,10 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        //Note: Where is Form Request In Store?
         return [
-            'name' => 'required|string',
-            'published' => 'required|boolean',
-            'brand_id' => 'required|array',
-            'brand_id.*' => 'exists:brands,id'
+            'name'          => 'required|string',
+            'permissions'   => 'required|array',
+            'permissions.*' => 'exists:permissions,id'
         ];
     }
 }

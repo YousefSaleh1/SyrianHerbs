@@ -18,16 +18,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+  
     public function index()
     {
-        
-        // $categorys = Category::all();
-        // $data = CategoryResource::collection($categorys);
-        // return $this->customeResponse($data, 'Done!', 200);
-
-        $items =Category::all();
-        return response()->json($items);
-
+        $categories = Category::with('brands')->get();
+        return response()->json($categories);
     }
 
 
@@ -35,27 +31,29 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+   
     public function store(StoreCategoryRequest $request)
     {
-
         try {
             $category = Category::create([
                 'name' => $request->name,
                 'published' => $request->published
             ]);
-    
-            $brandId = $request->input('brand_id');
-            $category->brands()->attach($brandId);
-    
+
+            // تحقق مما إذا كانت هناك علامات تجارية محددة للفئة
+            if ($request->has('brand_id')) {
+                $brandIds = $request->input('brand_id');
+                $category->brands()->attach($brandIds);
+            }
+
             $data = new CategoryResource($category);
-            return $this->customeResponse($data, 'Successfully Created', 201);
+            return $this->customeResponse($data, 'تم الإنشاء بنجاح', 201);
         } catch (\Throwable $th) {
             Log::error($th);
-            return $this->customeResponse(null, 'Failed To Create', 500);
+            return $this->customeResponse(null, 'فشل في الإنشاء', 500);
         }
-
-        
     }
+
 
 
     /**

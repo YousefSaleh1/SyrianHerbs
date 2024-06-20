@@ -24,7 +24,7 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name' => 'required|string',
             'published' => 'required|boolean',
-            'brand_id' => 'required|exists:brands,id', 
+            'brand_id' => 'exists:brands,id', 
         ];
     }
 }

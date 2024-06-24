@@ -16,9 +16,9 @@ class ProductResource extends JsonResource
     {
         return [
             'id'                           =>$this->id,
-            'name'                         =>$this->name,             
+            'name'                         =>$this->name,
             'subname1'                     =>$this->subname1,
-            'subname2'                     => $this->subname2, 
+            'subname2'                     =>$this->subname2,
             'product_description'          =>$this->product_description,
             'code_number'                  =>$this->code_number,
             'weight'                       =>$this-> weight,
@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
             'description_component'        =>$this->description_component,
             'count_each_package'           =>$this->count_each_package,
             'main_image'                   =>$this->main_image ,
-            'additional_image'             => $this->additional_image,
+            'additional_image'             =>$this->additional_image,
         ];
     }
 }

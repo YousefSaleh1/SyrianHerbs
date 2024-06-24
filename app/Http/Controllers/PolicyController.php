@@ -65,7 +65,7 @@ class PolicyController extends Controller
         try {
             $policy->title=$request->input('title') ?? $policy->title;
             $policy->description=$request->input('description') ?? $policy->description;
-            $policy->icon = $this->fileExists($request,'Policy','icon') ?? $policy->file ;
+            $policy->icon = $this->fileExists($request,'Policy','icon') ?? $policy->icon ;
             $policy->policy_number=$request->input('policy_number') ?? $policy->policy_number;
             $policy->save();
             $data = new PolicyResource($policy);

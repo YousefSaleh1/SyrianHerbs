@@ -54,10 +54,10 @@ Route::apiResource('policy', PolicyController::class);
 
 //////////////////////Contact Messages Routes ////////////////////////
 Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
+Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
+Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
+Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
-    Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
-    Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ Route::put('/hero/{hero}/update', [HeroController::class, 'update']);
 
 Route::get('/stories', [StoryController::class, 'index']);
 Route::get('/story/{story}', [StoryController::class, 'show']);
-Route::post('/story-create', [StoryController::class, 'store'])->middleware('auth:api');
+Route::post('/story-create', [StoryController::class, 'store']);
 Route::put('/story/{story}/update', [StoryController::class, 'update'])->middleware('auth:api');
 Route::delete('/story/{story}/delete', [StoryController::class, 'destroy'])->middleware('auth:api');
 

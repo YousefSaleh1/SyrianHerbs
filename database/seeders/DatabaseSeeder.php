@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\About;
+use App\Models\ContactMessage;
 use App\Models\Evaluation;
 use App\Models\Story;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,13 @@ class DatabaseSeeder extends Seeder
                 'icon' => $i,
                 'title' => "b $i",
                 'description' => "a $i"
+            ]);
+        }
+        for ($i=0; $i < 5; $i++) {
+            ContactMessage::create([
+                'full_name' => 'Contact',
+                'email' => 'contact@',
+                'message' => 'contact',
             ]);
         }
     }

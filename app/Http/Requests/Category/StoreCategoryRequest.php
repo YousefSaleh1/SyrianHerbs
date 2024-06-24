@@ -25,8 +25,12 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name' => 'required|string',
             'published' => 'required|boolean',
+// <<<<<<< maya_branch
+//             'brand_id' => 'exists:brands,id', 
+// =======
             'brand_id' => 'required|array',
             'brand_id.*' => 'exists:brands,id'
+// >>>>>>> main
         ];
     }
 }

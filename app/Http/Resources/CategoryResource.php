@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'published' => $this->published,
+            'products_count' => $this->products->count()
 
         ];
     }

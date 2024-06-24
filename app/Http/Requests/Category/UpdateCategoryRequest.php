@@ -21,8 +21,12 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        //Note: Where is Form Request In Update?
         return [
-            //
+            'name' => 'required|string',
+            'published' => 'required|boolean',
+            'brand_id' => 'required|array',
+            'brand_id.*' => 'exists:brands,id'
         ];
     }
 }

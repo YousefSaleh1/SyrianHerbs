@@ -21,10 +21,16 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        //Note: Where is Form Request In Store?
         return [
             'name' => 'required|string',
             'published' => 'required|boolean',
-            'brand_id' => 'exists:brands,id', 
+// <<<<<<< maya_branch
+//             'brand_id' => 'exists:brands,id', 
+// =======
+            'brand_id' => 'required|array',
+            'brand_id.*' => 'exists:brands,id'
+// >>>>>>> main
         ];
     }
 }

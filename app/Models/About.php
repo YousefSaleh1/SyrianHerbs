@@ -22,24 +22,4 @@ class About extends Model
         'file',
     ];
 
-    /**
-     * Set the "file" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setFileAttribute($value)
-    {
-        $this->attributes['file'] = $this->uploadFile($value, 'About');
-    }
-
-    /**
-     * Get the "file" attribute.
-     *
-     * @return string
-     */
-    public function getFileAttribute()
-    {
-        return asset(Storage::url($this->attributes['file']));
-    }
 }

@@ -21,8 +21,20 @@ class UpdateSettingRequest extends FormRequest
      */
     public function rules(): array
     {
+        /*
+        Note:
+            1- website_icon is SVG
+            2- title is nullable
+        */
         return [
-            //
+        'website_icon' => ' nullable|image|mimetypes:image/svg ',
+        'website_logo' => ' nullable|image|mimetypes:image/jpeg,image/png,image/gif,image/jpg',
+        'title' => ' nullable|string|max:255 ',
+        'description' => ' nullable|string|max:1000 ',
+        'tags' => 'nullable|string|max:255',
+        'meta_pixel_id' => ' nullable|string|max:255 ',
+        'google_analystic_id' => ' nullable|string|max:255 '
+
         ];
     }
 }

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\About;
+use App\Models\Evaluation;
+use App\Models\Story;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,19 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactSeeder::class);
         $this->call(HeroSeeder::class);
         $this->call(SettingSeeder::class);
+
+        for ($i=0; $i <5 ; $i++) {
+            Story::create([
+                'file' => $i,
+                'description' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            ]);
+        }
+        for ($i=0; $i <5 ; $i++) {
+            Evaluation::create([
+                'icon' => $i,
+                'title' => "b $i",
+                'description' => "a $i"
+            ]);
+        }
     }
 }

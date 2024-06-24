@@ -59,12 +59,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
- 
+
 
     public function show(Category $category)
     {
-       
-
     if($category){
         $data = new CategoryResource($category);
         return $this->customeResponse($data, 'Done!', 200);
@@ -73,16 +71,16 @@ class CategoryController extends Controller
     }
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-       
+
+       //Note: Validate must be in Form Request
         try {
-            
             $category->name        = $request->input('name') ?? $category->name;
             $category->published       = $request->input('published') ?? $category->published;
 
@@ -94,8 +92,6 @@ class CategoryController extends Controller
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
         }
-
-        
     }
 
     /**
@@ -103,21 +99,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-       
         if($category){
             $category->brands()->detach();
             $category->delete();
-            return response(["msg"=>"category was deleted successfolly "],201);
+            return response(["msg"=>"category was deleted successfolly "],200);
         }else{
             return response(["msg"=>"didn't success"],401);
         }
 
     }
-   
-
-   
-
-    
-
 }
 

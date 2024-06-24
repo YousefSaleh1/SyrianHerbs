@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use App\Http\Traits\UploadFile;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
 {
-    use HasFactory, UploadFile;
+    use HasFactory, UploadFile , Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -48,66 +48,14 @@ class Brand extends Model
         return $this->hasMany(Product::class, 'brand_id', 'id');
     }
 
-    /**
-     * Set the "background_image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setBackgroundImageAttribute($value)
-    {
-        $this->attributes['background_image'] = $this->uploadFile($value, 'Brand');
-    }
 
-    /**
-     * Get the "background_image" attribute.
-     *
-     * @return string
-     */
-    public function getBackgroundImageAttribute()
-    {
-        return asset(Storage::url($this->attributes['background_image']));
-    }
 
-    /**
-     * Set the "main_image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setMainImageAttribute($value)
+    /* Search By BrandName */
+    public function toSearchableArray(): array
     {
-        $this->attributes['main_image'] = $this->uploadFile($value, 'Brand');
-    }
+        return [
+            'name'     => $this->name,
+        ];
+    } 
 
-    /**
-     * Get the "main_image" attribute.
-     *
-     * @return string
-     */
-    public function getMainImageAttribute()
-    {
-        return asset(Storage::url($this->attributes['main_image']));
-    }
-
-    /**
-     * Set the "presentation_image" attribute.
-     *
-     * @param  mixed  $value
-     * @return void
-     */
-    public function setPresentationImageAttribute($value)
-    {
-        $this->attributes['presentation_image'] = $this->uploadFile($value, 'Brand');
-    }
-
-    /**
-     * Get the "presentation_image" attribute.
-     *
-     * @return string
-     */
-    public function getPresentationImageAttribute()
-    {
-        return asset(Storage::url($this->attributes['presentation_image']));
-    }
 }

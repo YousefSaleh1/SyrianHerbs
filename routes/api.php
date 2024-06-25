@@ -119,7 +119,7 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////////////////////////////////////////////////
 
 Route::get('/setting/{setting}', [SettingController::class, 'show']);
-Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('auth:api');
+Route::put('/setting/{setting}/update', [SettingController::class, 'update']);
 
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Setting Request ///////////////////////////
@@ -153,10 +153,10 @@ Route::put('/contacts/{contact}', [ContactController::class, 'update'])->middlew
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/categorys', [CategoryController::class, 'index']);
-Route::post('/add', [CategoryController::class, 'store'])->middleware('auth:api');;
-Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('auth:api');
-Route::get('/categorys/{category}', [CategoryController::class, 'show'])->middleware('auth:api');
-Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('auth:api');
+Route::post('/add', [CategoryController::class, 'store']);
+Route::put('/update/{category}', [CategoryController::class, 'update']);
+Route::get('/categorys/{category}', [CategoryController::class, 'show']);
+Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// End Category Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

@@ -19,11 +19,12 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
 
-  
+
     public function index()
     {
-        $categories = Category::with('brands')->get();
-        return response()->json($categories);
+        $categories = Category::all();
+        $data = CategoryResource::collection($categories);
+        return $this->customeResponse($data, 'Done!', 200);
     }
 
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
+
     public function store(StoreCategoryRequest $request)
     {
         try {

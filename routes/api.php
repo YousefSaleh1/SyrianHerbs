@@ -146,7 +146,7 @@ Route::put('/advantage/{advantage}', [AdvantageController::class, 'update'])->mi
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/contacts/{contact}', [ContactController::class, 'show']);
-Route::put('/contacts/{contact}', [ContactController::class, 'update'])->middleware('auth:api');
+Route::put('/contacts/{contact}', [ContactController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Category Requests ///////////////////////////////////

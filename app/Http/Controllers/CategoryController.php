@@ -25,7 +25,7 @@ class CategoryController extends Controller
         $categories = Category::with('brands')->get();
         return response()->json($categories);
     }
-
+ 
 
 
     /**
@@ -80,19 +80,30 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+<<<<<<< maya_branch
        
         try {
             
             $category->name        = $request->input('name') ?? $category->name;
             $category->published       = $request->input('published') ?? $category->published;
 
+=======
+        try {
+            $category->name = $request->input('name') ?? $category->name;
+            $category->published = $request->input('published') ?? $category->published;
+>>>>>>> local
             $category->save();
 
+            if ($request->has('brand_id')) {
+                $brandIds = $request->input('brand_id');
+                $category->brands()->sync($brandIds);
+            }
+
             $data = new CategoryResource($category);
-            return $this->customeResponse($data, 'Successfully Updated',200);
+            return $this->customeResponse($data, 'تم التحديث بنجاح', 200);
         } catch (\Throwable $th) {
             Log::error($th);
-            return response()->json(['message' => 'Something Error !'], 500);
+            return response()->json(['message' => 'حدث خطأ ما!'], 500);
         }
 
         

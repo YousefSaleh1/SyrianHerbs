@@ -19,11 +19,12 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
 
-  
+
     public function index()
     {
-        $categories = Category::with('brands')->get();
-        return response()->json($categories);
+        $categories = Category::all();
+        $data = CategoryResource::collection($categories);
+        return $this->customeResponse($data, 'Done!', 200);
     }
  
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
+
     public function store(StoreCategoryRequest $request)
     {
         try {
@@ -59,12 +60,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
- 
+
 
     public function show(Category $category)
     {
-       
-
     if($category){
         $data = new CategoryResource($category);
         return $this->customeResponse($data, 'Done!', 200);
@@ -73,25 +72,16 @@ class CategoryController extends Controller
     }
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-<<<<<<< maya_branch
-       
-        try {
-            
-            $category->name        = $request->input('name') ?? $category->name;
-            $category->published       = $request->input('published') ?? $category->published;
-
-=======
         try {
             $category->name = $request->input('name') ?? $category->name;
             $category->published = $request->input('published') ?? $category->published;
->>>>>>> local
             $category->save();
 
             if ($request->has('brand_id')) {
@@ -105,8 +95,6 @@ class CategoryController extends Controller
             Log::error($th);
             return response()->json(['message' => 'حدث خطأ ما!'], 500);
         }
-
-        
     }
 
     /**
@@ -114,21 +102,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-       
         if($category){
             $category->brands()->detach();
             $category->delete();
-            return response(["msg"=>"category was deleted successfolly "],201);
+            return response(["msg"=>"category was deleted successfolly "],200);
         }else{
             return response(["msg"=>"didn't success"],401);
         }
 
     }
-   
-
-   
-
-    
-
 }
 

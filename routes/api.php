@@ -65,7 +65,6 @@ Route::middleware(['auth:api'])->group(function () {
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/hero/{hero}', [HeroController::class, 'show']);
-Route::put('/hero/{hero}/update', [HeroController::class, 'update'])->middleware('api');
 Route::put('/hero/{hero}/update', [HeroController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -92,7 +91,7 @@ Route::delete('/story/{story}/delete', [StoryController::class, 'destroy'])->mid
 
 Route::get('/certifications', [CertificationController::class, 'index']);
 Route::get('/certification/{certification}', [CertificationController::class, 'show']);
-Route::post('/certification-create', [CertificationController::class, 'store'])->middleware('auth:api');
+Route::post('/certification-create', [CertificationController::class, 'store']);
 Route::put('/certification/{certification}/update', [CertificationController::class, 'update'])->middleware('auth:api');
 Route::delete('/certification/{certification}/delete', [CertificationController::class, 'destroy'])->middleware('auth:api');
 
@@ -129,7 +128,7 @@ Route::put('/setting/{setting}/update', [SettingController::class, 'update']);
 //////////////////////////////// About us routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 Route::get('/about/{about}', [AboutController::class, 'show']);
-Route::put('/about/{about}', [AboutController::class, 'update'])->middleware('auth:api');
+Route::put('/about/{about}/update', [AboutController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// End About us routes ////////////////////////////////
@@ -139,7 +138,7 @@ Route::put('/about/{about}', [AboutController::class, 'update'])->middleware('au
 //////////////////////////////// advantage routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 Route::get('/advantage/{advantage}', [AdvantageController::class, 'show']);
-Route::put('/advantage/{advantage}', [AdvantageController::class, 'update'])->middleware('auth:api');
+Route::put('/advantage/{advantage}/update', [AdvantageController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// End advantage routes ////////////////////////////////
@@ -166,10 +165,10 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 //-----------------------------------Brand Requests------------------------------------------//
 Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/brands/{brand}', [BrandController::class, 'show']);
+Route::post('/create-brand', [BrandController::class, 'store']);
+Route::post('/brands/{brand}', [BrandController::class, 'update']);
+Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::post('/create-brand', [BrandController::class, 'store']);
-    Route::post('/brands/{brand}', [BrandController::class, 'update']);
-    Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 
 
     /* Search By BrandName */

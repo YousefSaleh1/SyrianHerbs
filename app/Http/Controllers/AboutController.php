@@ -30,7 +30,7 @@ class AboutController extends Controller
     {
         //Note
         try {
-            Log::info('Update request received', $request->all());
+            // Log::info('Update request received', $request->all());
             $about->title = $request->title ?? $about->title;
             $about->description = $request->description ?? $about->description;
             $about->file = $this->fileExists($request, 'About', 'file') ?? $about->file;

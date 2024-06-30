@@ -30,7 +30,6 @@ class AdvantageController extends Controller
     {
         //Note
         try {
-            Log::info('Update request received', $request->all());
             $advantage->title = $request->input('title') ?? $advantage->title;
             $advantage->description = $request->input('description') ?? $advantage->description ;
             $advantage->main_image = $this->fileExists($request, 'Advantage', 'main_image') ?? $advantage->main_image;

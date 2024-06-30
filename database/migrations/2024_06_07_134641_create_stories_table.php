@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->string('file');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

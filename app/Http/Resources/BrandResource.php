@@ -23,8 +23,7 @@ class BrandResource extends JsonResource
             'background_image' =>$this->background_image,
             'published' => $this->published,
             'color' => $this->color,
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-            'products' => ProductResource::collection($this->whenLoaded('products')),
+            'products_count' => $this->products->count(),
         ];
     }
 

@@ -28,6 +28,7 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
+
         //Note: beginTransaction
         try {
             $brand = Brand::create([
@@ -35,7 +36,7 @@ class BrandController extends Controller
                 'description' => $request->description,
                 'main_image' => $this->uploadFile($request, 'Brand', 'main_image'),
                 'presentation_image' => $this->uploadFile($request, 'Brand', 'presentation_image'),
-                'published' => $request->published,
+                'published' => $request->published == 'true' ? 1 : 0,
                 'color' => $request->color,
                 'background_image' => $this->uploadFile($request, 'Brand', 'background_image'),
             ]);
@@ -67,7 +68,7 @@ class BrandController extends Controller
         try {
 
             $brand->name                = $request->input('name') ?? $brand->name;
-            $brand->description         = $request->input('published') ?? $brand->published;
+            $brand->description         = $request->input('published') === 'true' ? 1 : 0 ?? $brand->published;
             $brand->color               = $request->input('color') ?? $brand->color;
             $brand->main_image          = $this->fileExists($request, 'Brand', 'main_image') ?? $brand->main_image;
             $brand->presentation_image  = $this->fileExists($request, 'Brand', 'presentation_image') ?? $brand->presentation_image;
@@ -97,7 +98,7 @@ class BrandController extends Controller
     public function searchByBrandName($searchBrand)
     {
         $brands= Brand::search($searchBrand)->get();
-        return $this->customeResponse($brands, 'search by Brand Name was successful', 200);  
+        return $this->customeResponse($brands, 'search by Brand Name was successful', 200);
     }
 
 }

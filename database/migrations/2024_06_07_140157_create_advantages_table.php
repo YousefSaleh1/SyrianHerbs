@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('advantages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('main_image')->nullable();
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Policy;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePolicyRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class UpdatePolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'policy_number' => 'nullable|numeric|max:50',
-            'icon' => 'nullable|image|mimes:svg|max:10000000',
-            'title' => 'nullable|string|max:50|min:5',
-            'description' => 'nullable|string|max:255|min:10',
+            'name'          => 'required|string',
+            'permissions'   => 'required|array',
+            'permissions.*' => 'exists:permissions,id'
         ];
     }
 }

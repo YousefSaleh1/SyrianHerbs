@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('website_icon')->nullable();
             $table->string('website_logo')->nullable();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('tags');
             $table->string('meta_pixel_id');
             $table->string('google_analystic_id');

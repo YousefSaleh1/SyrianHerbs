@@ -16,6 +16,9 @@ use App\Http\Controllers\AdvantageController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\MainCardController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,10 +55,10 @@ Route::apiResource('policy', PolicyController::class);
 
 //////////////////////Contact Messages Routes ////////////////////////
 Route::post('/addContactMessage', [ContactMessageController::class, 'store']);
+Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
+Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
+Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('/allContactMessages', [ContactMessageController::class, 'index']);
-    Route::get('/showContactMessage/{contactMessage}', [ContactMessageController::class, 'show']);
-    Route::delete('/deleteContactMessage/{contactMessage}', [ContactMessageController::class, 'destroy']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +66,6 @@ Route::middleware(['auth:api'])->group(function () {
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/hero/{hero}', [HeroController::class, 'show']);
-Route::put('/hero/{hero}/update', [HeroController::class, 'update'])->middleware('api');
 Route::put('/hero/{hero}/update', [HeroController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +78,7 @@ Route::put('/hero/{hero}/update', [HeroController::class, 'update']);
 
 Route::get('/stories', [StoryController::class, 'index']);
 Route::get('/story/{story}', [StoryController::class, 'show']);
-Route::post('/story-create', [StoryController::class, 'store'])->middleware('auth:api');
+Route::post('/story-create', [StoryController::class, 'store']);
 Route::put('/story/{story}/update', [StoryController::class, 'update'])->middleware('auth:api');
 Route::delete('/story/{story}/delete', [StoryController::class, 'destroy'])->middleware('auth:api');
 
@@ -90,7 +92,7 @@ Route::delete('/story/{story}/delete', [StoryController::class, 'destroy'])->mid
 
 Route::get('/certifications', [CertificationController::class, 'index']);
 Route::get('/certification/{certification}', [CertificationController::class, 'show']);
-Route::post('/certification-create', [CertificationController::class, 'store'])->middleware('auth:api');
+Route::post('/certification-create', [CertificationController::class, 'store']);
 Route::put('/certification/{certification}/update', [CertificationController::class, 'update'])->middleware('auth:api');
 Route::delete('/certification/{certification}/delete', [CertificationController::class, 'destroy'])->middleware('auth:api');
 
@@ -117,7 +119,7 @@ Route::delete('/evaluation/{evaluation}/delete', [EvaluationController::class, '
 ////////////////////////////////////////////////////////////////////////
 
 Route::get('/setting/{setting}', [SettingController::class, 'show']);
-Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->middleware('auth:api');
+Route::put('/setting/{setting}/update', [SettingController::class, 'update']);
 
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Setting Request ///////////////////////////
@@ -127,7 +129,7 @@ Route::put('/setting/{setting}/update', [SettingController::class, 'update'])->m
 //////////////////////////////// About us routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 Route::get('/about/{about}', [AboutController::class, 'show']);
-Route::put('/about/{about}', [AboutController::class, 'update'])->middleware('auth:api');
+Route::put('/about/{about}/update', [AboutController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// End About us routes ////////////////////////////////
@@ -137,24 +139,24 @@ Route::put('/about/{about}', [AboutController::class, 'update'])->middleware('au
 //////////////////////////////// advantage routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 Route::get('/advantage/{advantage}', [AdvantageController::class, 'show']);
-Route::put('/advantage/{advantage}', [AdvantageController::class, 'update'])->middleware('auth:api');
+Route::put('/advantage/{advantage}/update', [AdvantageController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// End advantage routes ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/contacts/{contact}', [ContactController::class, 'show']);
-Route::put('/contacts/{contact}', [ContactController::class, 'update'])->middleware('auth:api');
+Route::put('/contacts/{contact}', [ContactController::class, 'update']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Category Requests ///////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/categorys', [CategoryController::class, 'index']);
-Route::post('/add', [CategoryController::class, 'store'])->middleware('auth:api');;
-Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('auth:api');
-Route::get('/categorys/{category}', [CategoryController::class, 'show'])->middleware('auth:api');
-Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('auth:api');
+Route::post('/add', [CategoryController::class, 'store']);
+Route::put('/update/{category}', [CategoryController::class, 'update']);
+Route::get('/categorys/{category}', [CategoryController::class, 'show']);
+Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// End Category Requests //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -164,10 +166,11 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->m
 //-----------------------------------Brand Requests------------------------------------------//
 Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/brands/{brand}', [BrandController::class, 'show']);
+Route::get('/brand/{brand}/site', [BrandController::class, 'showInSite']);
+Route::post('/create-brand', [BrandController::class, 'store']);
+Route::post('/brands/{brand}', [BrandController::class, 'update']);
+Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::post('/create-brand', [BrandController::class, 'store']);
-    Route::post('/brands/{brand}', [BrandController::class, 'update']);
-    Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
 
 
     /* Search By BrandName */
@@ -201,3 +204,43 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 
 /*------------------------------- End Of Products ----------------------------------------------*/
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// Role Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/roles', [RoleController::class, 'index']);
+Route::get('/role/{role}', [RoleController::class, 'show']);
+Route::post('/add-role', [RoleController::class, 'store']);
+Route::put('/role/{role}/update', [RoleController::class, 'update']);
+Route::delete('/role/{role}/delete', [RoleController::class, 'destroy']);
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// Role Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// User Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/user/{user}', [UserController::class, 'show']);
+Route::post('/add-user', [UserController::class, 'store']);
+Route::put('/user/{user}/update', [UserController::class, 'update']);
+Route::delete('/user/{user}/delete', [UserController::class, 'destroy']);
+
+/////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// User Requests //////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// Main Card Request /////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/main-card', [MainCardController::class, 'index']);
+
+/////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// End Main Card Request ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////

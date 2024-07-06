@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
 {
-    use HasFactory, UploadFile , Searchable;
+    use HasFactory, UploadFile, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +56,44 @@ class Brand extends Model
         return [
             'name'     => $this->name,
         ];
-    } 
+    }
 
+    /**
+     * Get the brand with categories and products
+     *
+     * @param int $id
+     * @return Brand|null
+     */
+    public static function getBrandWithCategoriesAndProducts(int $id): ?Brand
+    {
+        return self::with([
+            'categories' => function ($query) {
+                $query->select('categories.id', 'categories.name')
+                    ->where('published', true);
+            },
+            'categories.products' => function ($query) use ($id) {
+                $query->select('products.id', 'products.name', 'products.main_image', 'products.category_id', 'products.brand_id')
+                    ->where('products.brand_id', $id);
+            }
+        ])->find($id, ['id', 'name', 'description', 'color', 'background_image', 'presentation_image', 'main_image']);
+    }
+    // /**
+    //  * Get the brand with categories and products
+    //  *
+    //  * @param int $id
+    //  * @return Brand|null
+    //  */
+    // public static function getBrandWithCategoriesAndProducts(int $id): ?Brand
+    // {
+    //     return self::with([
+    //         'categories' => function ($query) {
+    //             $query->select('categories.id', 'categories.name')
+    //                 ->where('categories.published', true);
+    //         },
+    //         'categories.products' => function ($query) use ($id) {
+    //             $query->select('products.id', 'products.name', 'products.main_image', 'products.category_id')
+    //                 ->where('products.brand_id', $id);
+    //         }
+    //     ])->find($id, ['brands.id', 'brands.name', 'brands.description', 'brands.color', 'brands.background_image', 'brands.presentation_image', 'brands.main_image']);
+    // }
 }

@@ -19,7 +19,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::paginate(10);
-        $data = $brands->through(fn($brand) => new BrandResource($brand));
+        $data = $brands->through(fn ($brand) => new BrandResource($brand));
         return $this->customeResponse($data, 'Done!', 200);
     }
 
@@ -28,6 +28,7 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
+
         //Note: beginTransaction
         try {
             $brand = Brand::create([
@@ -35,7 +36,7 @@ class BrandController extends Controller
                 'description' => $request->description,
                 'main_image' => $this->uploadFile($request, 'Brand', 'main_image'),
                 'presentation_image' => $this->uploadFile($request, 'Brand', 'presentation_image'),
-                'published' => $request->published,
+                'published' => $request->published == 'true' ? 1 : 0,
                 'color' => $request->color,
                 'background_image' => $this->uploadFile($request, 'Brand', 'background_image'),
             ]);
@@ -67,7 +68,7 @@ class BrandController extends Controller
         try {
 
             $brand->name                = $request->input('name') ?? $brand->name;
-            $brand->description         = $request->input('published') ?? $brand->published;
+            $brand->description         = $request->input('published') === 'true' ? 1 : 0 ?? $brand->published;
             $brand->color               = $request->input('color') ?? $brand->color;
             $brand->main_image          = $this->fileExists($request, 'Brand', 'main_image') ?? $brand->main_image;
             $brand->presentation_image  = $this->fileExists($request, 'Brand', 'presentation_image') ?? $brand->presentation_image;
@@ -92,12 +93,25 @@ class BrandController extends Controller
 
     /**
      * Search By BrandName :
-    */
+     */
 
     public function searchByBrandName($searchBrand)
     {
-        $brands= Brand::search($searchBrand)->get();
-        return $this->customeResponse($brands, 'search by Brand Name was successful', 200);  
+        $brands = Brand::search($searchBrand)->get();
+        return $this->customeResponse($brands, 'search by Brand Name was successful', 200);
     }
 
+    /**
+     * Display the specified resource in the site view.
+     *
+     * @param  \App\Models\Brand  $brand
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException If the specified brand is not found.
+     */
+    public function showInSite(Brand $brand)
+    {
+        $brandWithRelation = Brand::getBrandWithCategoriesAndProducts($brand->id);
+        return $this->customeResponse($brandWithRelation, 'Done!', 200);
+    }
 }

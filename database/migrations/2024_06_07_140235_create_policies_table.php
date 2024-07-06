@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('policy_number');
             $table->string('icon');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

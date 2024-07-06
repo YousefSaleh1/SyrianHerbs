@@ -27,7 +27,7 @@ class UpdateSettingRequest extends FormRequest
             2- title is nullable
         */
         return [
-        'website_icon' => ' nullable|image|mimetypes:image/svg ',
+        'website_icon' => ' nullable|image|mimes:svg',
         'website_logo' => ' nullable|image|mimetypes:image/jpeg,image/png,image/gif,image/jpg',
         'title' => ' nullable|string|max:255 ',
         'description' => ' nullable|string|max:1000 ',

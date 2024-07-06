@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('background_image');
-            $table->string('description');
+            $table->text('description');
             $table->string('main_image');
             $table->string('presentation_image');
             $table->boolean('published');

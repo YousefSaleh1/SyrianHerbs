@@ -22,7 +22,7 @@ class StorePolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'policy_number' => 'required|numeric|min:2|max:50',
+            'policy_number' => 'required|numeric|max:50',
             'icon'=>'required|image|mimes:svg|max:10000000',
             'title'=>'required|string|max:50|min:5',
             'description'=>'required|string|max:255|min:10',

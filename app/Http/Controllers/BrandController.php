@@ -19,7 +19,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::paginate(10);
-        $data = $brands->through(fn($brand) => new BrandResource($brand));
+        $data = $brands->through(fn ($brand) => new BrandResource($brand));
         return $this->customeResponse($data, 'Done!', 200);
     }
 
@@ -93,12 +93,25 @@ class BrandController extends Controller
 
     /**
      * Search By BrandName :
-    */
+     */
 
     public function searchByBrandName($searchBrand)
     {
-        $brands= Brand::search($searchBrand)->get();
+        $brands = Brand::search($searchBrand)->get();
         return $this->customeResponse($brands, 'search by Brand Name was successful', 200);
     }
 
+    /**
+     * Display the specified resource in the site view.
+     *
+     * @param  \App\Models\Brand  $brand
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException If the specified brand is not found.
+     */
+    public function showInSite(Brand $brand)
+    {
+        $brandWithRelation = Brand::getBrandWithCategoriesAndProducts($brand->id);
+        return $this->customeResponse($brandWithRelation, 'Done!', 200);
+    }
 }

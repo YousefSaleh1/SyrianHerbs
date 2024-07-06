@@ -166,6 +166,7 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 //-----------------------------------Brand Requests------------------------------------------//
 Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/brands/{brand}', [BrandController::class, 'show']);
+Route::get('/brand/{brand}/site', [BrandController::class, 'showInSite']);
 Route::post('/create-brand', [BrandController::class, 'store']);
 Route::post('/brands/{brand}', [BrandController::class, 'update']);
 Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);

@@ -22,13 +22,13 @@ class UpdateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'nullable|string|max:50',
-            'description' => 'nullable|string|min:10',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name'               => 'nullable|string|max:50',
+            'description'        => 'nullable|string|min:10',
+            'main_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'presentation_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
-            'published' => 'nullable|boolean',
-            'color' => 'nullable|string|',
+            'background_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
+            'published'          => 'nullable|string|in:true,false',
+            'color'              => 'nullable|string|',
         ];
     }
 }

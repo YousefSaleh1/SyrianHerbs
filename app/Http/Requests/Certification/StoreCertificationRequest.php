@@ -24,7 +24,7 @@ class StoreCertificationRequest extends FormRequest
         return [
             'icon'        => 'required|image|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
             'name'        => 'required|string|min:2|max:50',
-            'subname'     => 'required|string|min:2|max:50',
+            'subname'     => 'nullable|string|min:2|max:50',
             'photo'       => 'required|image|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
             'description' => 'required|string|min:2',
         ];

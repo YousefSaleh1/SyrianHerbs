@@ -68,7 +68,8 @@ class BrandController extends Controller
         try {
 
             $brand->name                = $request->input('name') ?? $brand->name;
-            $brand->description         = $request->input('published') === 'true' ? 1 : 0 ?? $brand->published;
+            $brand->description         = $request->input('description') ?? $brand->description;
+            $brand->published           = ($request->input('published') === 'true' ? 1 : 0) ?? $brand->published;
             $brand->color               = $request->input('color') ?? $brand->color;
             $brand->main_image          = $this->fileExists($request, 'Brand', 'main_image') ?? $brand->main_image;
             $brand->presentation_image  = $this->fileExists($request, 'Brand', 'presentation_image') ?? $brand->presentation_image;

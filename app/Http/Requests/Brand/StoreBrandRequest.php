@@ -24,10 +24,10 @@ class StoreBrandRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:50',
             'description' => 'required|string|min:10|max:500',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'presentation_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'background_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
-            'published' => 'required|in:true,false,1,0',
+            'background_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'published' => 'required|string|in:true,false',
             'color' => 'required|string',
         ];
     }

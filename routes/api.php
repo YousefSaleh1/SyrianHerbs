@@ -93,8 +93,8 @@ Route::delete('/story/{story}/delete', [StoryController::class, 'destroy'])->mid
 Route::get('/certifications', [CertificationController::class, 'index']);
 Route::get('/certification/{certification}', [CertificationController::class, 'show']);
 Route::post('/certification-create', [CertificationController::class, 'store']);
-Route::put('/certification/{certification}/update', [CertificationController::class, 'update'])->middleware('auth:api');
-Route::delete('/certification/{certification}/delete', [CertificationController::class, 'destroy'])->middleware('auth:api');
+Route::put('/certification/{certification}/update', [CertificationController::class, 'update']);
+Route::delete('/certification/{certification}/delete', [CertificationController::class, 'destroy']);
 
 /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////// End certification Requests /////////////////////////////
@@ -168,8 +168,8 @@ Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/brands/{brand}', [BrandController::class, 'show']);
 Route::get('/brand/{brand}/site', [BrandController::class, 'showInSite']);
 Route::post('/create-brand', [BrandController::class, 'store']);
-Route::post('/brands/{brand}', [BrandController::class, 'update']);
-Route::delete('/brands/{brand}', [BrandController::class, 'destroy']);
+Route::put('/brands/{brand}/update', [BrandController::class, 'update']);
+Route::delete('/brands/{brand}/delete', [BrandController::class, 'destroy']);
 Route::middleware(['auth:api'])->group(function () {
 
 

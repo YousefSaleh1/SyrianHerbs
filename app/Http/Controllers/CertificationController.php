@@ -66,6 +66,10 @@ class CertificationController extends Controller
             $certification->subname      = $request->input('subname') ?? $certification->subname;
             $certification->photo        = $this->fileExists($request, 'Certification', 'photo') ?? $certification->photo;
             $certification->description  = $request->input('description') ?? $certification->description;
+
+            $certification->save();
+            $data = new CertificationResource($certification);
+            return $this->customeResponse($data, 'Successfully Updated', 200);
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);

@@ -19,7 +19,7 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        $evaluations = Evaluation::paginate(10);
+        $evaluations = Evaluation::all();
         $data = EvaluationResource::collection($evaluations);
         return $this->customeResponse($data, 'Done!', 200);
     }

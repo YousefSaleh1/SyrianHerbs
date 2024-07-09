@@ -21,7 +21,7 @@ class PolicyController extends Controller
      */
     public function index()
     {
-        $policys = Policy::paginate(10);
+        $policys = Policy::all();
         $data = PolicyResource::collection($policys);
         return $this->customeResponse($data, 'Done!', 200);
     }

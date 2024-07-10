@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HeroSeeder::class);
         $this->call(SettingSeeder::class);
 
-        for ($i=0; $i <5 ; $i++) {
+        for ($i=0; $i <2 ; $i++) {
             Story::create([
                 'file' => $i,
                 'description' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

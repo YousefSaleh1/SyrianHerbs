@@ -22,8 +22,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
-        $data = CategoryResource::collection($categories);
+        $categories = Category::paginate(10);
+        $data = $categories->through(fn ($brand) => new CategoryResource($brand));
         return $this->customeResponse($data, 'Done!', 200);
     }
 

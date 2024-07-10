@@ -31,8 +31,8 @@ class UpdateProductRequest extends FormRequest
             'packaging_description' => 'nullable|string|max:10000',
             'description_component' => 'nullable|string|max:10000',
             'count_each_package'    => 'nullable|integer|between:1,1000000',
-            'main_image'            => 'nullable|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
-            'additional_image'      => 'nullable|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
+            'main_image'            => 'nullable|file|mimes:png,jpg,jpeg|mimetypes:image/jpeg,image/png,image/jpg,image',
+            'additional_image'      => 'nullable|file|mimes:png,jpg,jpeg|mimetypes:image/jpeg,image/png,image/jpg,image',
         ];
     }
 }

@@ -23,10 +23,10 @@ class UpdateBrandRequest extends FormRequest
     {
         return [
             'name'               => 'nullable|string|max:50',
-            'description'        => 'nullable|string|min:10',
-            'main_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'presentation_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'background_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
+            'description'        => 'nullable|string',
+            'main_image'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'presentation_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'background_image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'published'          => 'nullable|string|in:true,false',
             'color'              => 'nullable|string|',
         ];

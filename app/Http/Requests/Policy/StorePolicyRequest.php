@@ -23,7 +23,7 @@ class StorePolicyRequest extends FormRequest
     {
         return [
             'policy_number' => 'required|numeric|max:50',
-            'icon'=>'required|image|mimes:svg|max:10000000',
+            'icon'=>'required|image|mimes:svg',
             'title'=>'required|string|max:50|min:5',
             'description'=>'required|string|max:255|min:10',
         ];

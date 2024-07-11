@@ -33,8 +33,8 @@ class StoreProductRequest extends FormRequest
         'packaging_description' => 'required|string|max:10000',
         'description_component' => 'required|string|max:10000',
         'count_each_package'    => 'required|integer|between:1,1000000',
-        'main_image'            => 'required|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
-        'additional_image'      => 'required|file|mimes:png,jpg,jpeg|max:10000|mimetypes:image/jpeg,image/png,image/jpg,image',
+        'main_image'            => 'required|file|mimes:png,jpg,jpeg|mimetypes:image/jpeg,image/png,image/jpg,image',
+        'additional_image'      => 'required|file|mimes:png,jpg,jpeg|mimetypes:image/jpeg,image/png,image/jpg,image',
         ];
     }
 }

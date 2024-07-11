@@ -23,7 +23,7 @@ class UpdatePolicyRequest extends FormRequest
     {
         return [
             'policy_number' => 'nullable|numeric|max:50',
-            'icon' => 'nullable|image|mimes:svg|max:10000000',
+            'icon' => 'nullable|image|mimes:svg',
             'title' => 'nullable|string|max:50|min:5',
             'description' => 'nullable|string|max:255|min:10',
         ];

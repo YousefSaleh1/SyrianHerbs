@@ -21,14 +21,14 @@ class UpdateContactRequest extends FormRequest
      */
     public function rules(): array
     {
-        //phone_number and whatsApp_number is numeric
+        
         return [
             'email' => 'nullable|email',
-            'phone_number' => 'nullable|numeric',
+            'phone_number' => 'nullable|string',
             'adresses' => 'nullable|string',
             'facebook_link' => 'nullable|url',
             'instegram_link' => 'nullable|url',
-            'whatsApp_number' => 'nullable|numeric',
+            'whatsApp_number' => 'nullable|string',
             'twitter_link' => 'nullable|url',
             'linkedin_link' => 'nullable|url',
             'youtube_link' => 'nullable|url',

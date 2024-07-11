@@ -19,6 +19,10 @@ class CategoryResource extends JsonResource
             ->where('category_id', $this->id)
             ->join('brands', 'brand_category.brand_id', '=', 'brands.id')
             ->pluck('brands.name');
+        $brands_id = DB::table('brand_category')
+            ->where('category_id', $this->id)
+            ->join('brands', 'brand_category.brand_id', '=', 'brands.id')
+            ->pluck('brands.id');
 
         ////Note: Where is Resource ?
         return [
@@ -26,6 +30,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'published' => $this->published,
             'brands_name' => $brands_name,
+            'brands_id' => $brands_id,
             'products_count' => $this->products->count()
         ];
     }

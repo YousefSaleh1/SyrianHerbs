@@ -154,8 +154,8 @@ Route::put('/contacts/{contact}', [ContactController::class, 'update'])->middlew
 
 Route::get('/categorys', [CategoryController::class, 'index']);
 Route::post('/add', [CategoryController::class, 'store'])->middleware('auth:api');
-Route::put('/update/{category}', [CategoryController::class, 'update'])->middleware('auth:api');
-Route::get('/categorys/{category}', [CategoryController::class, 'show']);
+Route::put('/category/{category}/update', [CategoryController::class, 'update'])->middleware('auth:api');
+Route::get('/category/{category}', [CategoryController::class, 'show']);
 Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('auth:api');
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// End Category Requests //////////////////////////////
@@ -165,11 +165,12 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->m
 
 //-----------------------------------Brand Requests------------------------------------------//
 Route::get('/brands', [BrandController::class, 'index']);
+Route::get('/brands-published', [BrandController::class, 'get_brands_published']);
 Route::get('/brands/{brand}', [BrandController::class, 'show']);
 Route::get('/brand/{brand}/site', [BrandController::class, 'showInSite']);
 Route::middleware(['auth:api'])->group(function () {
-    Route::post('/create-brand', [BrandController::class, 'store']);
     Route::put('/brands/{brand}/update', [BrandController::class, 'update']);
+    Route::post('/create-brand', [BrandController::class, 'store']);
     Route::delete('/brands/{brand}/delete', [BrandController::class, 'destroy']);
 
 

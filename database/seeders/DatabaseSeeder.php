@@ -23,26 +23,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactSeeder::class);
         $this->call(HeroSeeder::class);
         $this->call(SettingSeeder::class);
-
-        for ($i=0; $i <2 ; $i++) {
-            Story::create([
-                'file' => $i,
-                'description' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-            ]);
-        }
-        for ($i=0; $i <5 ; $i++) {
-            Evaluation::create([
-                'icon' => $i,
-                'title' => "b $i",
-                'description' => "a $i"
-            ]);
-        }
-        for ($i=0; $i < 5; $i++) {
-            ContactMessage::create([
-                'full_name' => 'Contact',
-                'email' => 'contact@',
-                'message' => 'contact',
-            ]);
-        }
     }
 }

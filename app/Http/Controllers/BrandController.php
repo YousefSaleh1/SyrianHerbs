@@ -115,4 +115,11 @@ class BrandController extends Controller
         $brandWithRelation = Brand::getBrandWithCategoriesAndProducts($brand->id);
         return $this->customeResponse($brandWithRelation, 'Done!', 200);
     }
+
+    public function get_brands_published()
+    {
+        $brands = Brand::where('published', 1)->get();
+        $data = BrandResource::collection($brands);
+        return $this->customeResponse($data, 'Done!', 200);
+    }
 }

@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
             'subname1'              => 'nullable|string|max:255',
             'subname2'              => 'nullable|string|max:255',
             'product_description'   => 'nullable|string|max:10000',
-            'code_number'           => 'nullable|numeric|between 1,100000',
+            'code_number'           => 'nullable|numeric|between: 1,100000',
             'weight'                => 'nullable|numeric|between:0.01,100000.00',
             'packaging_description' => 'nullable|string|max:10000',
             'description_component' => 'nullable|string|max:10000',

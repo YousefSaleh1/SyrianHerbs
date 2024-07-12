@@ -4,10 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\About;
-use App\Models\ContactMessage;
-use App\Models\Evaluation;
-use App\Models\Story;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

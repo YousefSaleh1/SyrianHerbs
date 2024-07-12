@@ -13,14 +13,14 @@ use App\Http\Requests\Product\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    use ApiResponseTrait , UploadFile;
+    use ApiResponseTrait, UploadFile;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $products = Product::paginate(10);
-        $data = $products->through(fn($product) => new ProductResource($product));
+        $data = $products->through(fn ($product) => new ProductResource($product));
         return $this->customeResponse($data, 'Done!', 200);
     }
 
@@ -45,11 +45,11 @@ class ProductController extends Controller
                 'packaging_description' => $request->packaging_description,
                 'description_component' => $request->description_component,
                 'count_each_package'    => $request->count_each_package,
-                'main_image'            => $this->uploadFile($request,'Product','main_image'),
-                'additional_image'      => $this->uploadFile($request,'Product','additional_image'),
+                'main_image'            => $this->uploadFile($request, 'Product', 'main_image'),
+                'additional_image'      => $request->additional_image ? $this->uploadFile($request, 'Product', 'additional_image') : null,
             ]);
-            return $this->customeResponse(new ProductResource($product), 'Product Created Successfully', 200);
 
+            return $this->customeResponse(new ProductResource($product), 'Product Created Successfully', 200);
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->customeResponse(null, 'Failed To Create', 500);
@@ -85,7 +85,6 @@ class ProductController extends Controller
 
             $product->save();
             return $this->customeResponse(new ProductResource($product), 'Product updated Successfully', 200);
-
         } catch (\Throwable $th) {
             Log::error($th);
             return response()->json(['message' => 'Something Error !'], 500);
@@ -103,7 +102,7 @@ class ProductController extends Controller
 
     /**
      * Duplicate the Product .
-    */
+     */
     public function duplicateProduct(Product $product)
     {
         $newProduct = $product->replicate();
@@ -113,11 +112,11 @@ class ProductController extends Controller
 
     /**
      * Search By Name .
-    */
+     */
 
     public function search($search)
     {
-        $products= Product::search($search)->get();
+        $products = Product::search($search)->get();
         return $this->customeResponse($products, 'search by name was successful', 200);
     }
 
@@ -126,7 +125,7 @@ class ProductController extends Controller
 
     /**
      * Filter By Category .
-    */
+     */
 
     public function filterByCategory($category)
     {
@@ -136,12 +135,11 @@ class ProductController extends Controller
 
     /**
      * Filter By Brand .
-    */
+     */
 
     public function filterByBrand($brand)
     {
         $products = Product::where('brand_id', $brand)->get();
         return $this->customeResponse($products, ' Filter By Brand was successful', 200);
     }
-
 }

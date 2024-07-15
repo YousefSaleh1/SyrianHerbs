@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('description_component');
             $table->integer('count_each_package');
             $table->string('main_image');
-            $table->string('additional_image')->nullable();
+            $table->string('additional_image');
             $table->timestamps();
         });
     }

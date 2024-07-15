@@ -72,7 +72,7 @@ class Brand extends Model
                     ->where('published', true);
             },
             'categories.products' => function ($query) use ($id) {
-                $query->select('products.id', 'products.name', 'products.main_image', 'products.category_id', 'products.brand_id')
+                $query->select('products.id', 'products.name', 'products.additional_image', 'products.category_id', 'products.brand_id')
                     ->where('products.brand_id', $id);
             }
         ])->find($id, ['id', 'name', 'description', 'color', 'background_image', 'presentation_image', 'main_image']);
